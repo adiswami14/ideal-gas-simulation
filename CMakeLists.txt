@@ -51,7 +51,9 @@ include("${CINDER_PATH}/proj/cmake/modules/cinderMakeApp.cmake")
 
 list(APPEND CORE_SOURCE_FILES)
 
-list(APPEND SOURCE_FILES    ${CORE_SOURCE_FILES})
+list(APPEND SOURCE_FILES    ${CORE_SOURCE_FILES}
+        src/visualizer/ideal_gas_app.cc
+        src/visualizer/simulator.cc)
 
 list(APPEND TEST_FILES)
 
