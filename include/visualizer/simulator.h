@@ -1,5 +1,7 @@
 #pragma once
 
+#include <core/box.h>
+#include <core/particle_generator.h>
 #include "cinder/gl/gl.h"
 
 namespace idealgas {
@@ -15,6 +17,8 @@ public:
 private:
     glm::vec2 top_left_corner_;
     size_t box_size_;
+    Box box_;
+    //ParticleGenerator particle_generator_;
 };
 
 } //namespace visualizer
