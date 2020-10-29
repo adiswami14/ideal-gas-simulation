@@ -23,8 +23,8 @@ public:
 
 private:
     void InitializeBounds();
-    std::set<double> x_boundary_positions_;
-    std::set<double> y_boundary_positions_;
+    std::vector<double> x_boundary_positions_;
+    std::vector<double> y_boundary_positions_;
     vec2 top_left_corner_;
     size_t box_size_;
     size_t particle_radius_;
