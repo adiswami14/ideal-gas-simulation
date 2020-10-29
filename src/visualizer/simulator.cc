@@ -23,18 +23,38 @@ void Simulator::Draw() {
  ci::gl::color(ci::Color("grey"));
  ci::gl::drawStrokedRect(pixel_bounding_box);
 
- vector<ParticleGenerator::Particle> particle_list = particle_generator_.GetParticleList();
+ vector<Particle> particle_list = particle_generator_.GetParticleList();
+ vector<Particle> removed_particle_list = particle_list;
  for(size_t index = 0; index < particle_list.size(); index++) {
-     ParticleGenerator::Particle p = particle_list.at(index);
+     Particle p = particle_list.at(index);
+     vec2 curr_particle_position = p.GetPosition();
+     vec2 curr_particle_velocity = p.GetVelocity();
+     auto it=std::find(removed_particle_list.begin(),removed_particle_list.end(),p);
+     if(it!=removed_particle_list.end()) {
+         removed_particle_list.erase(it);
+     }
      ci::gl::color(ci::Color("white"));
-     ci::gl::drawSolidCircle(p.position, particle_radius_);
-     if(box_.IsAtXBoundary(p.position)) {
-         p.velocity.x*=-1;
+     ci::gl::drawSolidCircle(curr_particle_position, particle_radius_);
+     for(size_t indexs = 0; indexs < removed_particle_list.size(); indexs++) {
+         Particle particle = removed_particle_list.at(indexs);
+         vec2 diff_position = curr_particle_position - particle.GetPosition();
+         vec2 diff_velocity = curr_particle_velocity - particle.GetVelocity();
+         if(p.HasCollidedWith(particle, particle_radius_) && glm::dot(diff_position, diff_velocity) <0) {
+             p.ChangePostCollisionVelocity(particle);
+             particle.ChangePostCollisionVelocity(p);
+             curr_particle_velocity = p.GetVelocity();
+             particle_list.at(indexs).SetVelocity(particle.GetVelocity());
+         }
      }
-     if(box_.IsAtYBoundary(p.position)) {
-         p.velocity.y*=-1;
+     if(box_.IsAtXBoundary(curr_particle_position)) {
+         curr_particle_velocity.x*=-1;
      }
-     p.position+=p.velocity;
+     if(box_.IsAtYBoundary(curr_particle_position)) {
+         curr_particle_velocity.y*=-1;
+     }
+     curr_particle_position += curr_particle_velocity;
+     p.SetPosition(curr_particle_position);
+     p.SetVelocity(curr_particle_velocity);
      particle_list.at(index) = p;
  }
  particle_generator_.SetParticleList(particle_list);
