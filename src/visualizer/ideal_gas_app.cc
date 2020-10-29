@@ -14,6 +14,17 @@ void IdealGasApp::draw() {
     simulator_.Draw();
 }
 
+void IdealGasApp::keyDown(ci::app::KeyEvent event) {
+    ParticleGenerator pg = simulator_.GetParticleGenerator();
+    switch (event.getCode()) {
+        case ci::app::KeyEvent::KEY_SPACE:
+            glm::vec2 position(55.5, 56.7);
+            glm::vec2 velocity(1.4, -0.8);
+            pg.GenerateParticle(position, velocity);
+            simulator_.SetParticleGenerator(pg);
+            break;
+    }
+}
 } //namespace visualizer
 
 } //namespace idealgas

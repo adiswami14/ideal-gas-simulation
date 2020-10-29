@@ -14,11 +14,14 @@ public:
 
     void Draw() const;
 
+    ParticleGenerator GetParticleGenerator() const;
+
+    void SetParticleGenerator(const ParticleGenerator& particle_generator);
 private:
     glm::vec2 top_left_corner_;
     size_t box_size_;
     Box box_;
-    //ParticleGenerator particle_generator_;
+    ParticleGenerator particle_generator_;
 };
 
 } //namespace visualizer

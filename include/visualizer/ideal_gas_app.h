@@ -15,8 +15,8 @@ public:
 
     void draw() override;
     /*void mouseDown(ci::app::MouseEvent event) override;
-    void mouseDrag(ci::app::MouseEvent event) override;
-    void keyDown(ci::app::KeyEvent event) override;*/
+    void mouseDrag(ci::app::MouseEvent event) override;*/
+    void keyDown(ci::app::KeyEvent event) override;
 
     const double kWindowSize = 600;
     const double kMargin = 50;

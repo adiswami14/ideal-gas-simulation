@@ -21,8 +21,23 @@ void Simulator::Draw() const {
  ci::gl::drawSolidRect(pixel_bounding_box);
  ci::gl::color(ci::Color("grey"));
  ci::gl::drawStrokedRect(pixel_bounding_box);
+
+ for(size_t index = 0; index < particle_generator_.GetParticleList().size(); index++) {
+     ParticleGenerator::Particle p = particle_generator_.GetParticleList().at(index);
+     ci::gl::color(ci::Color("white"));
+     ci::gl::drawSolidCircle(p.position, 4);
+     p.position+=p.velocity;
+     //particle_generator_.GetParticleList().at(index) = p;
+ }
 }
 
+ParticleGenerator Simulator::GetParticleGenerator() const {
+    return particle_generator_;
+}
+
+void Simulator::SetParticleGenerator(const ParticleGenerator &particle_generator) {
+    particle_generator_ = particle_generator;
+}
 } //namespace visualizer
 
 } //namespace idealgas
