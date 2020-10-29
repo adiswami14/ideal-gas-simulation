@@ -1,6 +1,7 @@
 #pragma once
 
 #include "cinder/gl/gl.h"
+#include "particle.h"
 
 namespace idealgas {
 
@@ -16,9 +17,9 @@ public:
 
     size_t GetBoxSize() const;
 
-    bool IsAtXBoundary(const vec2& position) const;
+    bool IsAtXBoundary(const Particle &p) const;
 
-    bool IsAtYBoundary(const vec2& position) const;
+    bool IsAtYBoundary(const Particle &p) const;
 
 private:
     void InitializeBounds();

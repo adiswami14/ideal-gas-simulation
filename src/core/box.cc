@@ -17,19 +17,29 @@ size_t Box::GetBoxSize() const {
     return box_size_;
 }
 
-bool Box::IsAtXBoundary(const vec2 &position) const {
+bool Box::IsAtXBoundary(const Particle& p) const {
     for(double x_pos : x_boundary_positions_) {
-        if (abs(position.x - x_pos)<=particle_radius_) {
-            return true;
+        double x_diff = p.GetPosition().x - x_pos;
+        double x_velocity_component = p.GetVelocity().x;
+        double multiplier = x_diff * x_velocity_component;
+        if(multiplier<0) {
+            if (abs(p.GetPosition().x - x_pos) <= particle_radius_) {
+                return true;
+            }
         }
     }
     return false;
 }
 
-bool Box::IsAtYBoundary(const vec2 &position) const {
+bool Box::IsAtYBoundary(const Particle &p) const {
     for(double y_pos : y_boundary_positions_) {
-        if (abs(position.y - y_pos)<=particle_radius_) {
-            return true;
+        double y_diff = p.GetPosition().y - y_pos;
+        double y_velocity_component = p.GetVelocity().y;
+        double multiplier = y_diff * y_velocity_component;
+        if(multiplier<0) {
+            if (abs(p.GetPosition().y - y_pos) <= particle_radius_) {
+                return true;
+            }
         }
     }
     return false;
