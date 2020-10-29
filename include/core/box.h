@@ -10,7 +10,7 @@ class Box {
 public:
     Box();
 
-    Box(const vec2& top_left_corner, size_t box_size);
+    Box(const vec2& top_left_corner, size_t box_size, size_t particle_radius);
 
     vec2 GetTopLeftCorner() const;
 
@@ -26,6 +26,7 @@ private:
     std::set<double> y_boundary_positions_;
     vec2 top_left_corner_;
     size_t box_size_;
+    size_t particle_radius_;
 };
 
 } //namespace idealgas

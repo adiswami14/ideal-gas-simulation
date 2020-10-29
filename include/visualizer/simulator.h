@@ -10,9 +10,9 @@ namespace visualizer {
 
 class Simulator {
 public:
-    Simulator(const glm::vec2& top_left_corner, size_t box_size);
+    Simulator(const glm::vec2& top_left_corner, size_t box_size, size_t particle_radius);
 
-    void Draw() const;
+    void Draw();
 
     ParticleGenerator GetParticleGenerator() const;
 
@@ -20,6 +20,7 @@ public:
 private:
     glm::vec2 top_left_corner_;
     size_t box_size_;
+    size_t particle_radius_;
     Box box_;
     ParticleGenerator particle_generator_;
 };

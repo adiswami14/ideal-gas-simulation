@@ -20,6 +20,7 @@ public:
 
     const double kWindowSize = 600;
     const double kMargin = 50;
+    const size_t kParticleRadius = 4;
     //const size_t kImageDimension = 28;
 private:
     Simulator simulator_;
