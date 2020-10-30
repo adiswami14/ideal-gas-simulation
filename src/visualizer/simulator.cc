@@ -11,8 +11,8 @@ Simulator::Simulator(const glm::vec2 &top_left_corner, size_t box_size, size_t p
   box_size_(box_size),
   particle_radius_(particle_radius){
     Box box(top_left_corner_, box_size_, particle_radius_);
-    box_ = box;
-    vec2 test_pos(64.3, 912.4);
+    particle_generator_.SetBox(box);
+    particle_generator_.SetParticleRadius(particle_radius_);
 }
 
 void Simulator::Draw() {
@@ -22,40 +22,7 @@ void Simulator::Draw() {
  ci::gl::drawSolidRect(pixel_bounding_box);
  ci::gl::color(ci::Color("grey"));
  ci::gl::drawStrokedRect(pixel_bounding_box);
-
- vector<Particle> particle_list = particle_generator_.GetParticleList();
- for(size_t index = 0; index < particle_list.size(); index++) {
-     Particle p = particle_list.at(index);
-     vec2 curr_particle_position = p.GetPosition();
-     vec2 curr_particle_velocity = p.GetVelocity();
-     ci::gl::color(ci::Color("white"));
-     ci::gl::drawSolidCircle(curr_particle_position, particle_radius_);
-     for(size_t indexs = 0; indexs < particle_list.size(); indexs++) {
-         if(indexs != index) {
-             Particle particle = particle_list.at(indexs);
-             vec2 diff_position = curr_particle_position - particle.GetPosition();
-             vec2 diff_velocity = curr_particle_velocity - particle.GetVelocity();
-             double dot = glm::dot(diff_position, diff_velocity);
-             if (p.HasCollidedWith(particle, particle_radius_) && dot < 0) {
-                 p.ChangePostCollisionVelocity(particle);
-                 particle.ChangePostCollisionVelocity(p);
-                 curr_particle_velocity = p.GetVelocity();
-                 particle_list.at(indexs).SetVelocity(particle.GetVelocity());
-             }
-         }
-     }
-     if(box_.IsAtXBoundary(p)) {
-         curr_particle_velocity.x*=-1;
-     }
-     if(box_.IsAtYBoundary(p)) {
-         curr_particle_velocity.y*=-1;
-     }
-     curr_particle_position += curr_particle_velocity;
-     p.SetPosition(curr_particle_position);
-     p.SetVelocity(curr_particle_velocity);
-     particle_list.at(index) = p;
- }
- particle_generator_.SetParticleList(particle_list);
+ particle_generator_.UpdateParticles();
 }
 
 ParticleGenerator Simulator::GetParticleGenerator() const {
