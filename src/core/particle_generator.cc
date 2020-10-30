@@ -17,14 +17,19 @@ void ParticleGenerator::SetParticleRadius(size_t radius_size) {
     particle_radius_ = radius_size;
 }
 
+size_t ParticleGenerator::GetParticleRadius() const {
+    return particle_radius_;
+}
+
+vector<Particle> ParticleGenerator::GetParticleList() const {
+    return particle_list_;
+}
+
 void ParticleGenerator::UpdateParticles() {
     for(size_t index = 0; index < particle_list_.size(); index++) {
         Particle p = particle_list_.at(index);
         vec2 curr_particle_position = p.GetPosition();
         vec2 curr_particle_velocity = p.GetVelocity();
-
-        ci::gl::color(ci::Color("white"));
-        ci::gl::drawSolidCircle(curr_particle_position, particle_radius_);
 
         CheckCollisions(p, index, curr_particle_position, curr_particle_velocity);
         CheckBounds(p, curr_particle_velocity);
@@ -40,9 +45,10 @@ void ParticleGenerator::CheckCollisions(Particle &p, size_t curr_index,  const v
     for(size_t index = 0; index < particle_list_.size(); index++) {
         if(index != curr_index) {
             Particle particle = particle_list_.at(index);
+            Particle placeholder = p;
             if (p.HasCollidedWith(particle, particle_radius_)) {
                 p.ChangePostCollisionVelocity(particle);
-                particle.ChangePostCollisionVelocity(p);
+                particle.ChangePostCollisionVelocity(placeholder);
                 p_velocity = p.GetVelocity();
                 particle_list_.at(index).SetVelocity(particle.GetVelocity());
             }

@@ -17,9 +17,13 @@ public:
 
     void SetBox(const Box& box);
 
+    vector<Particle> GetParticleList() const;
+
     void UpdateParticles();
 
     void SetParticleRadius(size_t radius_size);
+
+    size_t GetParticleRadius() const;
 private:
     void CheckCollisions(Particle &p, size_t curr_index, const vec2 &p_position, vec2 &p_velocity);
 

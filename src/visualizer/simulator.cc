@@ -23,6 +23,10 @@ void Simulator::Draw() {
  ci::gl::color(ci::Color("grey"));
  ci::gl::drawStrokedRect(pixel_bounding_box);
  particle_generator_.UpdateParticles();
+ for(Particle p : particle_generator_.GetParticleList()) {
+     ci::gl::color(ci::Color("white"));
+     ci::gl::drawSolidCircle(p.GetPosition(), particle_radius_);
+ }
 }
 
 ParticleGenerator Simulator::GetParticleGenerator() const {

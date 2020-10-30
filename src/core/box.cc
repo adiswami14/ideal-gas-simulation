@@ -17,6 +17,10 @@ size_t Box::GetBoxSize() const {
     return box_size_;
 }
 
+size_t Box::GetParticleRadius() const {
+    return particle_radius_;
+}
+
 bool Box::IsAtXBoundary(const Particle& p) const {
     double curr_x = p.GetPosition().x;
     if(curr_x <= x_boundary_positions_[0] || curr_x >= x_boundary_positions_[1]) {

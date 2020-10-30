@@ -17,6 +17,8 @@ public:
 
     size_t GetBoxSize() const;
 
+    size_t GetParticleRadius() const;
+
     bool IsAtXBoundary(const Particle &p) const;
 
     bool IsAtYBoundary(const Particle &p) const;
