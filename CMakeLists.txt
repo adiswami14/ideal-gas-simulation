@@ -55,7 +55,7 @@ list(APPEND SOURCE_FILES    ${CORE_SOURCE_FILES}
         src/visualizer/ideal_gas_app.cc
         src/visualizer/simulator.cc)
 
-list(APPEND TEST_FILES)
+list(APPEND TEST_FILES tests/test_box.cc tests/test_particle.cc tests/test_particle_generator.cc)
 
 ci_make_app(
         APP_NAME        gas-simulator

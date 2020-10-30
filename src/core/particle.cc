@@ -24,20 +24,23 @@ void Particle::SetVelocity(const vec2 &vel) {
 }
 
 bool Particle::HasCollidedWith(const Particle &p, size_t particle_radius) const {
-    return (GetDistanceTo(p) <= 2*particle_radius);
+    vec2 diff_position = position_ - p.position_;
+    vec2 diff_velocity = velocity_ - p.velocity_;
+    double dot = glm::dot(diff_position, diff_velocity);
+    return (GetDistanceTo(p) <= 2*particle_radius && dot <0);
 }
 
 double Particle::GetDistanceTo(const Particle &p) const {
     return sqrt(pow(position_.x - p.position_.x, 2) + pow(position_.y - p.position_.y, 2));
 }
 
-bool Particle::operator==(const Particle &p) const {
-    return (position_ == p.position_ && velocity_ == p.velocity_);
-}
-
 void Particle::ChangePostCollisionVelocity(const Particle &p) {
     double dot_product = glm::dot((velocity_-p.velocity_),(position_-p.position_));
     double squared_length = glm::pow(glm::length(position_ -p.position_), 2);
+    if(squared_length == 0) {
+        throw std::runtime_error("You divided by zero!");
+    }
+
     double curr_particle_factor = dot_product/squared_length;
     vec2 distance_between_particles = position_ - p.position_;
     distance_between_particles *= curr_particle_factor;

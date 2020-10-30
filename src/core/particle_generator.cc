@@ -40,10 +40,7 @@ void ParticleGenerator::CheckCollisions(Particle &p, size_t curr_index,  const v
     for(size_t index = 0; index < particle_list_.size(); index++) {
         if(index != curr_index) {
             Particle particle = particle_list_.at(index);
-            vec2 diff_position = p_position - particle.GetPosition();
-            vec2 diff_velocity = p_velocity - particle.GetVelocity();
-            double dot = glm::dot(diff_position, diff_velocity);
-            if (p.HasCollidedWith(particle, particle_radius_) && dot < 0) {
+            if (p.HasCollidedWith(particle, particle_radius_)) {
                 p.ChangePostCollisionVelocity(particle);
                 particle.ChangePostCollisionVelocity(p);
                 p_velocity = p.GetVelocity();

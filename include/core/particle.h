@@ -18,15 +18,13 @@ public:
 
     void SetVelocity(const vec2& vel);
 
-    double GetDistanceTo(const Particle &p) const;
-
     bool HasCollidedWith(const Particle &p, size_t particle_radius) const;
-
-    bool operator==(const Particle& p) const;
 
     void ChangePostCollisionVelocity(const Particle &p);
 
 private:
+    double GetDistanceTo(const Particle &p) const;
+
     vec2 position_;
     vec2 velocity_;
 };
