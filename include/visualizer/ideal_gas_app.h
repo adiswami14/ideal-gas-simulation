@@ -9,21 +9,24 @@ namespace idealgas {
 
 namespace visualizer {
 
+/**
+ * The class that extends Cinder and acts as a GUI
+ */
 class IdealGasApp : public ci::app::App {
 public:
+    const double kWindowSize = 600;//size of the Cinder window
+    const double kMargin = 50; //margin to keep Box at
+    const size_t kParticleRadius = 4; //radius of each particle
+    const size_t kBoxSize = 500; //the size of the Box
+
+    /**
+     * Default constructor for this class
+     */
     IdealGasApp();
-
     void draw() override;
-    /*void mouseDown(ci::app::MouseEvent event) override;
-    void mouseDrag(ci::app::MouseEvent event) override;*/
     void keyDown(ci::app::KeyEvent event) override;
-
-    const double kWindowSize = 600;
-    const double kMargin = 50;
-    const size_t kParticleRadius = 4;
-    //const size_t kImageDimension = 28;
 private:
-    Simulator simulator_;
+    Simulator simulator_; //instance of Simulator class to update particles
 };
 
 } //namespace visualizer

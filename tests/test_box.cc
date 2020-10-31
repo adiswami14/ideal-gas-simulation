@@ -69,9 +69,7 @@ TEST_CASE("IsAtYBoundary") {
         vec2 pos(100, 52);
         vec2 vel(2, -2);
         Particle p(pos, vel);
-        bool x = box.IsAtYBoundary(p);
-        x = false;
-        //REQUIRE(box.IsAtYBoundary(p));
+        REQUIRE(box.IsAtYBoundary(p));
     }
 
     SECTION("Is at bottom edge of box") {
