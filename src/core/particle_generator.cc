@@ -28,7 +28,7 @@ vector<Particle> ParticleGenerator::GetParticleList() const {
 void ParticleGenerator::UpdateParticles() {
     for(size_t index = 0; index < particle_list_.size(); index++) {
         Particle p = particle_list_.at(index);
-        vec2 curr_particle_position = p.GetPosition();
+        vec2 curr_particle_position = p.GetPosition(); //update velocities and positions and set them at the end
         vec2 curr_particle_velocity = p.GetVelocity();
 
         CheckCollisions(p, index, curr_particle_position, curr_particle_velocity);
@@ -42,10 +42,10 @@ void ParticleGenerator::UpdateParticles() {
 }
 
 void ParticleGenerator::CheckCollisions(Particle &p, size_t curr_index,  const vec2 &p_position, vec2 &p_velocity) {
-    for(size_t index = 0; index < particle_list_.size(); index++) {
+    for(size_t index = 0; index < particle_list_.size(); index++) { //re-iterate through particle list
         if(index != curr_index) {
             Particle particle = particle_list_.at(index);
-            Particle placeholder = p;
+            Particle placeholder = p; //temporary particle to avoid messing up post-collision velocity values
             if (p.HasCollidedWith(particle, particle_radius_)) {
                 p.ChangePostCollisionVelocity(particle);
                 particle.ChangePostCollisionVelocity(placeholder);

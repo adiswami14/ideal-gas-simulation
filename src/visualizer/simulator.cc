@@ -20,8 +20,9 @@ void Simulator::Draw() {
  ci::Rectf pixel_bounding_box(top_left_corner_, bottom_right_corner);
  ci::gl::color(ci::Color("black"));
  ci::gl::drawSolidRect(pixel_bounding_box);
- ci::gl::color(ci::Color("grey"));
+ ci::gl::color(ci::Color("grey")); //draws box within which simulation will take place
  ci::gl::drawStrokedRect(pixel_bounding_box);
+
  particle_generator_.UpdateParticles();
  for(Particle p : particle_generator_.GetParticleList()) {
      ci::gl::color(ci::Color("white"));

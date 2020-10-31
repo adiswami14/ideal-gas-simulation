@@ -37,7 +37,7 @@ double Particle::GetDistanceTo(const Particle &p) const {
 void Particle::ChangePostCollisionVelocity(const Particle &p) {
     double dot_product = glm::dot((velocity_-p.velocity_),(position_-p.position_));
     double squared_length = glm::pow(glm::length(position_ -p.position_), 2);
-    if(squared_length == 0) {
+    if(squared_length == 0) { //this particle and p are at same position — this cannot happen
         throw std::runtime_error("You divided by zero!");
     }
 

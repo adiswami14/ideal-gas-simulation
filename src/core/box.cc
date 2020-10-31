@@ -23,15 +23,15 @@ size_t Box::GetParticleRadius() const {
 
 bool Box::IsAtXBoundary(const Particle& p) const {
     double curr_x = p.GetPosition().x;
-    if(curr_x <= x_boundary_positions_[0] || curr_x >= x_boundary_positions_[1]) {
+    if(curr_x <= x_boundary_positions_[0] || curr_x >= x_boundary_positions_[1]) { //if particle's x is over the bounds
         return true;
     }
     for(double x_pos : x_boundary_positions_) {
         double x_diff = curr_x - x_pos;
         double x_velocity_component = p.GetVelocity().x;
         double multiplier = x_diff * x_velocity_component;
-        if(multiplier<0) {
-            if (abs(curr_x - x_pos) <= particle_radius_) {
+        if(multiplier<0) { //check if particle is moving towards wall
+            if (abs(curr_x - x_pos) <= particle_radius_) { //if distance to wall is less than the radius of particle
                 return true;
             }
         }
@@ -58,8 +58,6 @@ bool Box::IsAtYBoundary(const Particle &p) const {
 }
 
 void Box::InitializeBounds() {
-    x_boundary_positions_.clear();
-    y_boundary_positions_.clear();
     x_boundary_positions_.push_back(top_left_corner_.x);
     x_boundary_positions_.push_back(top_left_corner_.x + box_size_);
     y_boundary_positions_.push_back(top_left_corner_.y);
