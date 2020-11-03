@@ -23,11 +23,11 @@ void Particle::SetVelocity(const vec2 &vel) {
     velocity_ = vel;
 }
 
-bool Particle::HasCollidedWith(const Particle &p, size_t particle_radius) const {
+bool Particle::HasCollidedWith(const Particle &p) const {
     vec2 diff_position = position_ - p.position_;
     vec2 diff_velocity = velocity_ - p.velocity_;
     double dot = glm::dot(diff_position, diff_velocity);
-    return (GetDistanceTo(p) <= 2*particle_radius && dot <0);
+    return (GetDistanceTo(p) <= (radius_+p.radius_) && dot <0);
 }
 
 double Particle::GetDistanceTo(const Particle &p) const {

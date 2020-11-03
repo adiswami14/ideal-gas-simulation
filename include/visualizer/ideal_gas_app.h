@@ -27,6 +27,7 @@ public:
     void keyDown(ci::app::KeyEvent event) override;
 private:
     Simulator simulator_; //instance of Simulator class to update particles
+    bool particle_mode_; //true for red particle, false for blue particle
 };
 
 } //namespace visualizer

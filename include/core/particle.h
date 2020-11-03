@@ -48,7 +48,7 @@ public:
      * @param particle_radius The radius of the particles
      * @return Whether the particles are due for a collision
      */
-    bool HasCollidedWith(const Particle &p, size_t particle_radius) const;
+    bool HasCollidedWith(const Particle &p) const;
 
     /**
      * Given a particle, will set velocity to the post-collision velocity provided these two particle have collided
@@ -56,6 +56,8 @@ public:
      */
     void ChangePostCollisionVelocity(const Particle &p);
 
+    size_t mass_;
+    size_t radius_;
 private:
     /**
      * Given a particle, will find how far this instance of particle is to the given particle

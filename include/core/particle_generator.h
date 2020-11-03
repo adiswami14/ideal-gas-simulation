@@ -24,7 +24,7 @@ public:
      * @param pos Position vector of particle to be created
      * @param vel Velocity vector of particle to be created
      */
-    void GenerateParticle(const vec2& pos, const vec2& vel);
+    void GenerateParticle(const vec2& pos, const vec2& vel, bool is_red_particle);
 
     /**
      * Sets instance of Box within the instance of ParticleGenerator

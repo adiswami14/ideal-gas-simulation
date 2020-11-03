@@ -1,12 +1,19 @@
 #include <core/particle_generator.h>
+#include <core/red_particle.h>
+#include <core/blue_particle.h>
 
 namespace idealgas {
 
 ParticleGenerator::ParticleGenerator() {}
 
-void ParticleGenerator::GenerateParticle(const vec2& pos, const vec2& vel) {
-    Particle particle(pos, vel);
-    particle_list_.push_back(particle);
+void ParticleGenerator::GenerateParticle(const vec2& pos, const vec2& vel, bool is_red_particle) {
+    if(is_red_particle) {
+        RedParticle red_particle(pos, vel);
+        particle_list_.push_back(red_particle);
+    } else  {
+        BlueParticle blue_particle(pos, vel);
+        particle_list_.push_back(blue_particle);
+    }
 }
 
 void ParticleGenerator::SetBox(const Box &box) {
@@ -46,7 +53,7 @@ void ParticleGenerator::CheckCollisions(Particle &p, size_t curr_index,  const v
         if(index != curr_index) {
             Particle particle = particle_list_.at(index);
             Particle placeholder = p; //temporary particle to avoid messing up post-collision velocity values
-            if (p.HasCollidedWith(particle, particle_radius_)) {
+            if (p.HasCollidedWith(particle)) {
                 p.ChangePostCollisionVelocity(particle);
                 particle.ChangePostCollisionVelocity(placeholder);
                 p_velocity = p.GetVelocity();

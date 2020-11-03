@@ -31,7 +31,7 @@ bool Box::IsAtXBoundary(const Particle& p) const {
         double x_velocity_component = p.GetVelocity().x;
         double multiplier = x_diff * x_velocity_component;
         if(multiplier<0) { //check if particle is moving towards wall
-            if (abs(curr_x - x_pos) <= particle_radius_) { //if distance to wall is less than the radius of particle
+            if (abs(curr_x - x_pos) <= p.radius_) { //if distance to wall is less than the radius of particle
                 return true;
             }
         }
@@ -49,7 +49,7 @@ bool Box::IsAtYBoundary(const Particle &p) const {
         double y_velocity_component = p.GetVelocity().y;
         double multiplier = y_diff * y_velocity_component;
         if(multiplier<0) {
-            if (abs(curr_y - y_pos) <= particle_radius_) {
+            if (abs(curr_y - y_pos) <= p.radius_) {
                 return true;
             }
         }
