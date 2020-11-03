@@ -6,13 +6,11 @@ namespace visualizer {
 
 using glm::vec2;
 
-Simulator::Simulator(const glm::vec2 &top_left_corner, size_t box_size, size_t particle_radius)
+Simulator::Simulator(const glm::vec2 &top_left_corner, size_t box_size)
 : top_left_corner_(top_left_corner),
-  box_size_(box_size),
-  particle_radius_(particle_radius){
-    Box box(top_left_corner_, box_size_, particle_radius_);
+  box_size_(box_size){
+    Box box(top_left_corner_, box_size_);
     particle_generator_.SetBox(box);
-    particle_generator_.SetParticleRadius(particle_radius_);
 }
 
 void Simulator::Draw() {
@@ -27,7 +25,7 @@ void Simulator::Draw() {
  for(Particle p : particle_generator_.GetParticleList()) {
      if(p.mass_ == 2) {
          ci::gl::color(ci::Color("red"));
-     } //else ci::gl::color(ci::Color("blue"));
+     } else if(p.mass_ == 5) ci::gl::color(ci::Color("blue"));
      ci::gl::drawSolidCircle(p.GetPosition(), p.radius_);
  }
 }

@@ -16,7 +16,6 @@ class IdealGasApp : public ci::app::App {
 public:
     const double kWindowSize = 600;//size of the Cinder window
     const double kMargin = 50; //margin to keep Box at
-    const size_t kParticleRadius = 4; //radius of each particle
     const size_t kBoxSize = 500; //the size of the Box
 
     /**

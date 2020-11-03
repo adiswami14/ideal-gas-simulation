@@ -42,6 +42,8 @@ void Particle::ChangePostCollisionVelocity(const Particle &p) {
     }
 
     double curr_particle_factor = dot_product/squared_length;
+    double mass_factor = ((double)(2*p.mass_))/(mass_+p.mass_);
+    curr_particle_factor*=mass_factor;
     vec2 distance_between_particles = position_ - p.position_;
     distance_between_particles *= curr_particle_factor;
     velocity_ -= distance_between_particles;

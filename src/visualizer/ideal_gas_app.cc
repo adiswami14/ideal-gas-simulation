@@ -4,7 +4,7 @@ namespace idealgas {
 
 namespace visualizer {
 
-IdealGasApp::IdealGasApp() : simulator_(glm::vec2(kMargin, kMargin), kBoxSize, kParticleRadius){
+IdealGasApp::IdealGasApp() : simulator_(glm::vec2(kMargin, kMargin), kBoxSize){
     ci::app::setWindowSize((int) kWindowSize, (int) kWindowSize);
     particle_mode_ = true;
 }

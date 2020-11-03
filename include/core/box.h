@@ -23,7 +23,7 @@ public:
      * @param box_size The size of this instance of box
      * @param particle_radius The radius of each particle in the box
      */
-    Box(const vec2& top_left_corner, size_t box_size, size_t particle_radius);
+    Box(const vec2& top_left_corner, size_t box_size);
 
     /**
      * The top left corner position in this instance of box
@@ -36,12 +36,6 @@ public:
      * @return The box_size_ variable
      */
     size_t GetBoxSize() const;
-
-    /**
-     * The radius of each particle in this instance of box
-     * @return The particle_radius_ variable
-     */
-    size_t GetParticleRadius() const;
 
     /**
      * Checks if a given particle is at a x-wall boundary
@@ -67,7 +61,6 @@ private:
     std::vector<double> y_boundary_positions_; //vector that keeps track of the y-wall y-positions
     vec2 top_left_corner_; //top left corner position of the instance of box
     size_t box_size_; //size of this instance of box
-    size_t particle_radius_; //radius of each particle in this instance of box
 };
 
 } //namespace idealgas

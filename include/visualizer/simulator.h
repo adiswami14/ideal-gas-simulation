@@ -19,7 +19,7 @@ public:
      * @param box_size The size of the box
      * @param particle_radius The radius of each particle
      */
-    Simulator(const glm::vec2& top_left_corner, size_t box_size, size_t particle_radius);
+    Simulator(const glm::vec2& top_left_corner, size_t box_size);
 
     /**
      * Updates Particle values and redraws them
@@ -40,7 +40,6 @@ public:
 private:
     glm::vec2 top_left_corner_; //Top left corner of the Box
     size_t box_size_; //size of the Box
-    size_t particle_radius_; //Radius of each particle
     ParticleGenerator particle_generator_; //Instance of Particle Generator in order to keep generating particles
 };
 

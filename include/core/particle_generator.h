@@ -42,18 +42,6 @@ public:
      * Updates all Particle positions and velocities in simulations, and checks for collisions
      */
     void UpdateParticles();
-
-    /**
-     * Sets the radius of each particle to be generated
-     * @param radius_size The value of which to set the value of particle_radius_ variable to
-     */
-    void SetParticleRadius(size_t radius_size);
-
-    /**
-     * Gets the radius of each particle to be generated
-     * @return The value of particle_radius_ value
-     */
-    size_t GetParticleRadius() const;
 private:
     /**
      * Checks for particle-to-particle collisions
@@ -73,7 +61,6 @@ private:
 
     vector<Particle> particle_list_; //vector containing all Particles in the simulation
     Box box_; //instance of Box within where the simulation takes place
-    size_t particle_radius_; //radius of each particle in simulation
 };
 
 } //namespace idealgas

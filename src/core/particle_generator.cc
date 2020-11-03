@@ -20,14 +20,6 @@ void ParticleGenerator::SetBox(const Box &box) {
     box_ = box;
 }
 
-void ParticleGenerator::SetParticleRadius(size_t radius_size) {
-    particle_radius_ = radius_size;
-}
-
-size_t ParticleGenerator::GetParticleRadius() const {
-    return particle_radius_;
-}
-
 vector<Particle> ParticleGenerator::GetParticleList() const {
     return particle_list_;
 }

@@ -4,8 +4,8 @@ namespace idealgas {
 
 Box::Box() {}
 
-Box::Box(const vec2 &top_left_corner, size_t box_size, size_t particle_radius)
-: top_left_corner_(top_left_corner), box_size_(box_size), particle_radius_(particle_radius){
+Box::Box(const vec2 &top_left_corner, size_t box_size)
+: top_left_corner_(top_left_corner), box_size_(box_size){
     InitializeBounds();
 }
 
@@ -15,10 +15,6 @@ glm::vec2 Box::GetTopLeftCorner() const {
 
 size_t Box::GetBoxSize() const {
     return box_size_;
-}
-
-size_t Box::GetParticleRadius() const {
-    return particle_radius_;
 }
 
 bool Box::IsAtXBoundary(const Particle& p) const {
