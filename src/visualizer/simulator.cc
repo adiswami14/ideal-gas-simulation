@@ -11,6 +11,8 @@ Simulator::Simulator(const glm::vec2 &top_left_corner, size_t box_size)
   box_size_(box_size){
     Box box(top_left_corner_, box_size_);
     particle_generator_.SetBox(box);
+    Histogram histogram(vec2(400, 400), 50);
+    histogram_ = histogram;
 }
 
 void Simulator::Draw() {
@@ -30,6 +32,8 @@ void Simulator::Draw() {
      } else if(p.mass_ == 10) ci::gl::color(ci::Color("white"));
      ci::gl::drawSolidCircle(p.GetPosition(), p.radius_);
  }
+
+ histogram_.Draw();
 }
 
 ParticleGenerator Simulator::GetParticleGenerator() const {
