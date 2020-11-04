@@ -1,18 +1,22 @@
 #include <core/particle_generator.h>
 #include <core/red_particle.h>
 #include <core/blue_particle.h>
+#include <core/white_particle.h>
 
 namespace idealgas {
 
 ParticleGenerator::ParticleGenerator() {}
 
-void ParticleGenerator::GenerateParticle(const vec2& pos, const vec2& vel, bool is_red_particle) {
-    if(is_red_particle) {
+void ParticleGenerator::GenerateParticle(const vec2& pos, const vec2& vel, std::string particle_type) {
+    if(particle_type == "red") {
         RedParticle red_particle(pos, vel);
         particle_list_.push_back(red_particle);
-    } else  {
+    } else if(particle_type == "blue") {
         BlueParticle blue_particle(pos, vel);
         particle_list_.push_back(blue_particle);
+    } else {
+        WhiteParticle white_particle(pos, vel);
+        particle_list_.push_back(white_particle);
     }
 }
 

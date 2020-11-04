@@ -6,7 +6,7 @@ namespace visualizer {
 
 IdealGasApp::IdealGasApp() : simulator_(glm::vec2(kMargin, kMargin), kBoxSize){
     ci::app::setWindowSize((int) kWindowSize, (int) kWindowSize);
-    particle_mode_ = true;
+    particle_mode_ = "red";
 }
 
 void IdealGasApp::draw() {
@@ -19,10 +19,13 @@ void IdealGasApp::keyDown(ci::app::KeyEvent event) {
     ParticleGenerator pg = simulator_.GetParticleGenerator();
     switch (event.getCode()) {
         case ci::app::KeyEvent::KEY_r:
-            particle_mode_ = true;
+            particle_mode_ = "red";
             break;
         case ci::app::KeyEvent::KEY_b:
-            particle_mode_ = false;
+            particle_mode_ = "blue";
+            break;
+        case ci::app::KeyEvent::KEY_w:
+            particle_mode_ = "white";
             break;
         case ci::app::KeyEvent::KEY_SPACE:
             glm::vec2 position(55.5, 56.7); //every particle starts at same position and velocity

@@ -25,7 +25,9 @@ void Simulator::Draw() {
  for(Particle p : particle_generator_.GetParticleList()) {
      if(p.mass_ == 2) {
          ci::gl::color(ci::Color("red"));
-     } else if(p.mass_ == 5) ci::gl::color(ci::Color("blue"));
+     } else if(p.mass_ == 5) {
+         ci::gl::color(ci::Color("blue"));
+     } else if(p.mass_ == 10) ci::gl::color(ci::Color("white"));
      ci::gl::drawSolidCircle(p.GetPosition(), p.radius_);
  }
 }
