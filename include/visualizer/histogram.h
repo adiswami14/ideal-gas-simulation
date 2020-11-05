@@ -19,6 +19,8 @@ public:
     void SetParticleVector(const vector<Particle> &particle_vec);
 
     void Draw();
+
+    void SetColor(const ci::Color &color);
 private:
     void UpdateFrequencyMap();
     void CreateHistogram();
@@ -26,6 +28,7 @@ private:
     map<double, size_t> frequency_map_;
     size_t histogram_size_;
     vector<Particle> particle_vec_;
+    ci::Color color_;
 };
 
 } //namespace visualizer

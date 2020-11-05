@@ -39,6 +39,8 @@ public:
      */
     void SetParticleGenerator(const ParticleGenerator& particle_generator);
 private:
+    void DrawHistograms(const vector<Particle> &red_particle_list, const vector<Particle> &blue_particle_list, const vector<Particle> &white_particle_list);
+
     glm::vec2 top_left_corner_; //Top left corner of the Box
     size_t box_size_; //size of the Box
     ParticleGenerator particle_generator_; //Instance of Particle Generator in order to keep generating particles

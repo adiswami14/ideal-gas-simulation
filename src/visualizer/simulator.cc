@@ -15,8 +15,12 @@ Simulator::Simulator(const glm::vec2 &top_left_corner, size_t box_size)
     Histogram histogram2(vec2(450, 750), 100);
     Histogram histogram3(vec2(750, 750), 100);
     red_histogram_ = histogram;
+    red_histogram_.SetColor(ci::Color("red"));
     blue_histogram_ = histogram2;
+    blue_histogram_.SetColor(ci::Color("blue"));
     white_histogram_ = histogram3;
+    white_histogram_.SetColor(ci::Color("white"));
+
 }
 
 void Simulator::Draw() {
@@ -45,13 +49,7 @@ void Simulator::Draw() {
      }
      ci::gl::drawSolidCircle(p.GetPosition(), p.radius_);
  }
-
- red_histogram_.SetParticleVector(red_particle_list);
- red_histogram_.Draw();
- blue_histogram_.SetParticleVector(blue_particle_list);
- blue_histogram_.Draw();
- white_histogram_.SetParticleVector(white_particle_list);
- white_histogram_.Draw();
+ DrawHistograms(red_particle_list, blue_particle_list, white_particle_list);
 }
 
 ParticleGenerator Simulator::GetParticleGenerator() const {
@@ -60,6 +58,15 @@ ParticleGenerator Simulator::GetParticleGenerator() const {
 
 void Simulator::SetParticleGenerator(const ParticleGenerator &particle_generator) {
     particle_generator_ = particle_generator;
+}
+
+void Simulator::DrawHistograms(const vector<Particle> &red_particle_list, const vector<Particle> &blue_particle_list, const vector<Particle> &white_particle_list) {
+    red_histogram_.SetParticleVector(red_particle_list);
+    red_histogram_.Draw();
+    blue_histogram_.SetParticleVector(blue_particle_list);
+    blue_histogram_.Draw();
+    white_histogram_.SetParticleVector(white_particle_list);
+    white_histogram_.Draw();
 }
 } //namespace visualizer
 

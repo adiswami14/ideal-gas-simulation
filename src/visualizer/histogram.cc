@@ -24,11 +24,16 @@ void Histogram::Draw() {
     ci::gl::drawStringCentered("Speed", x_axis_vec+vec2(-20, 10));
     ci::gl::drawStringCentered("Frequency", y_axis_vec-vec2(40, -10));
     UpdateFrequencyMap();
+    ci::gl::color(color_);
     CreateHistogram();
 }
 
 void Histogram::SetParticleVector(const vector<Particle> &particle_vec) {
     particle_vec_ = particle_vec;
+}
+
+void Histogram::SetColor(const ci::Color &color) {
+    color_ = color;
 }
 
 void Histogram::UpdateFrequencyMap() {
@@ -51,7 +56,6 @@ void Histogram::CreateHistogram() {
         ci::gl::drawSolidRect(num_box);
     }
 }
-
 }
 
 }
