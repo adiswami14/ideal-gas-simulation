@@ -14,9 +14,10 @@ namespace visualizer {
  */
 class IdealGasApp : public ci::app::App {
 public:
-    const double kWindowSize = 600;//size of the Cinder window
-    const double kMargin = 50; //margin to keep Box at
-    const size_t kBoxSize = 500; //the size of the Box
+    const double kWindowSize = 900;//size of the Cinder window
+    const double kXMargin = 250; //margin to keep Box at
+    const double kYMargin = 100;
+    const size_t kBoxSize = 400; //the size of the Box
 
     /**
      * Default constructor for this class

@@ -42,7 +42,9 @@ private:
     glm::vec2 top_left_corner_; //Top left corner of the Box
     size_t box_size_; //size of the Box
     ParticleGenerator particle_generator_; //Instance of Particle Generator in order to keep generating particles
-    Histogram histogram_;
+    Histogram red_histogram_;
+    Histogram blue_histogram_;
+    Histogram white_histogram_;
 };
 
 } //namespace visualizer

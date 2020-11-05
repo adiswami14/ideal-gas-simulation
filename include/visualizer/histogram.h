@@ -1,5 +1,6 @@
 #pragma once
 
+#include <core/particle.h>
 #include "cinder/gl/gl.h"
 
 namespace idealgas {
@@ -15,11 +16,16 @@ public:
 
     Histogram(glm::vec2 bottom_left_corner, size_t histogram_size);
 
-    void Draw() const;
+    void SetParticleVector(const vector<Particle> &particle_vec);
+
+    void Draw();
 private:
+    void UpdateFrequencyMap();
+    void CreateHistogram();
     glm::vec2 bottom_left_corner_;
-    //map<double, size_t> frequency_map_;
+    map<double, size_t> frequency_map_;
     size_t histogram_size_;
+    vector<Particle> particle_vec_;
 };
 
 } //namespace visualizer
