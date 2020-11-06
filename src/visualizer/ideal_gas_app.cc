@@ -22,6 +22,14 @@ void IdealGasApp::update() {
 void IdealGasApp::keyDown(ci::app::KeyEvent event) {
     ParticleGenerator pg = simulator_.GetParticleGenerator();
     switch (event.getCode()) {
+        case ci::app::KeyEvent::KEY_RIGHT:
+            pg.ChangeVelocities(1.2);
+            simulator_.SetParticleGenerator(pg);
+            break;
+        case ci::app::KeyEvent::KEY_LEFT:
+            pg.ChangeVelocities(0.8);
+            simulator_.SetParticleGenerator(pg);
+            break;
         case ci::app::KeyEvent::KEY_r:
             particle_mode_ = "red";
             break;

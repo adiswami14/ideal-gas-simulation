@@ -42,6 +42,8 @@ public:
      * Updates all Particle positions and velocities in simulations, and checks for collisions
      */
     void UpdateParticles();
+
+    void ChangeVelocities(double factor);
 private:
     /**
      * Checks for particle-to-particle collisions

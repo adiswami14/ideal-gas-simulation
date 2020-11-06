@@ -44,6 +44,14 @@ void ParticleGenerator::UpdateParticles() {
     }
 }
 
+void ParticleGenerator::ChangeVelocities(double factor) {
+    for(Particle &p: particle_list_) {
+        vec2 vel = p.GetVelocity();
+        vel*=factor;
+        p.SetVelocity(vel);
+    }
+}
+
 void ParticleGenerator::CheckCollisions(Particle &p, size_t curr_index,  const vec2 &p_position, vec2 &p_velocity) {
     for(size_t index = 0; index < particle_list_.size(); index++) { //re-iterate through particle list
         if(index != curr_index) {
