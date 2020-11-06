@@ -27,6 +27,8 @@ public:
      */
     void Draw();
 
+    void Update();
+
     /**
      * Gets instance of ParticleGenerator class in this instance of Simulator
      * @return The variable particle_generator_

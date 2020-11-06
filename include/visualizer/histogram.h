@@ -20,6 +20,8 @@ public:
 
     void Draw();
 
+    void Update();
+
     void SetColor(const ci::Color &color);
 private:
     void UpdateFrequencyMap();

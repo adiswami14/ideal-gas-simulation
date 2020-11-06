@@ -23,6 +23,13 @@ Simulator::Simulator(const glm::vec2 &top_left_corner, size_t box_size)
 
 }
 
+void Simulator::Update() {
+    particle_generator_.UpdateParticles();
+    red_histogram_.Update();
+    blue_histogram_.Update();
+    white_histogram_.Update();
+}
+
 void Simulator::Draw() {
  vec2 bottom_right_corner = top_left_corner_+vec2(box_size_, box_size_);
  ci::Rectf pixel_bounding_box(top_left_corner_, bottom_right_corner);
@@ -34,8 +41,6 @@ void Simulator::Draw() {
  vector<Particle> red_particle_list;
  vector<Particle> blue_particle_list;
  vector<Particle> white_particle_list;
-
- particle_generator_.UpdateParticles();
  for(Particle p : particle_generator_.GetParticleList()) {
      if(p.mass_ == 2) {
          ci::gl::color(ci::Color("red"));

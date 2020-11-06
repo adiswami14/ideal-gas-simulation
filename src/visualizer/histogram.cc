@@ -15,6 +15,10 @@ bottom_left_corner_(bottom_left_corner),
 histogram_size_(histogram_size)
 {}
 
+void Histogram::Update() {
+    UpdateFrequencyMap();
+}
+
 void Histogram::Draw() {
     ci::gl::color(ci::Color("white"));
     vec2 x_axis_vec = bottom_left_corner_+vec2(histogram_size_, 0);
@@ -23,7 +27,6 @@ void Histogram::Draw() {
     ci::gl::drawLine(bottom_left_corner_, y_axis_vec);
     ci::gl::drawStringCentered("Speed", x_axis_vec+vec2(-20, 10));
     ci::gl::drawStringCentered("Frequency", y_axis_vec-vec2(40, -10));
-    UpdateFrequencyMap();
     ci::gl::color(color_);
     CreateHistogram();
 }

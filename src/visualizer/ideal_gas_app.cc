@@ -15,6 +15,10 @@ void IdealGasApp::draw() {
     simulator_.Draw();
 }
 
+void IdealGasApp::update() {
+    simulator_.Update();
+}
+
 void IdealGasApp::keyDown(ci::app::KeyEvent event) {
     ParticleGenerator pg = simulator_.GetParticleGenerator();
     switch (event.getCode()) {

@@ -24,6 +24,7 @@ public:
      */
     IdealGasApp();
     void draw() override;
+    void update() override;
     void keyDown(ci::app::KeyEvent event) override;
 private:
     Simulator simulator_; //instance of Simulator class to update particles
