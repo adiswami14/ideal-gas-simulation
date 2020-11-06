@@ -3,6 +3,7 @@
 #include <catch2/catch.hpp>
 #include <core/red_particle.h>
 #include <core/blue_particle.h>
+#include <core/white_particle.h>
 
 using namespace idealgas;
 
@@ -24,6 +25,8 @@ TEST_CASE("IsAtXBoundary", "[IsAtXBoundary][Constructor]") {
         vec2 vel(2, 2);
         RedParticle p(pos, vel);
         BlueParticle p2(pos, vel);
+        WhiteParticle p3(pos, vel);
+        REQUIRE(!box.IsAtXBoundary(p3));
         REQUIRE(!box.IsAtXBoundary(p));
         REQUIRE(!box.IsAtXBoundary(p2));
     }
@@ -33,6 +36,8 @@ TEST_CASE("IsAtXBoundary", "[IsAtXBoundary][Constructor]") {
         vec2 vel(-2, 2);
         RedParticle p(pos, vel);
         BlueParticle p2(pos, vel);
+        WhiteParticle p3(pos, vel);
+        REQUIRE(box.IsAtXBoundary(p3));
         REQUIRE(box.IsAtXBoundary(p));
         REQUIRE(box.IsAtXBoundary(p2));
     }
@@ -42,6 +47,8 @@ TEST_CASE("IsAtXBoundary", "[IsAtXBoundary][Constructor]") {
         vec2 vel(2, 2);
         RedParticle p(pos, vel);
         BlueParticle p2(pos, vel);
+        WhiteParticle p3(pos, vel);
+        REQUIRE(box.IsAtXBoundary(p3));
         REQUIRE(box.IsAtXBoundary(p));
         REQUIRE(box.IsAtXBoundary(p2));
     }
@@ -51,6 +58,8 @@ TEST_CASE("IsAtXBoundary", "[IsAtXBoundary][Constructor]") {
         vec2 vel(-2, 2);
         RedParticle p(pos, vel);
         BlueParticle p2(pos, vel);
+        WhiteParticle p3(pos, vel);
+        REQUIRE(box.IsAtXBoundary(p3));
         REQUIRE(box.IsAtXBoundary(p2));
         REQUIRE(box.IsAtXBoundary(p));
     }
@@ -60,8 +69,32 @@ TEST_CASE("IsAtXBoundary", "[IsAtXBoundary][Constructor]") {
         vec2 vel(2, 2);
         RedParticle p(pos, vel);
         BlueParticle p2(pos, vel);
+        WhiteParticle p3(pos, vel);
+        REQUIRE(box.IsAtXBoundary(p3));
         REQUIRE(box.IsAtXBoundary(p2));
         REQUIRE(box.IsAtXBoundary(p));
+    }
+
+    SECTION("Red particle is only one not at boundary") {
+        vec2 pos(547, 100);
+        vec2 vel(2, 2);
+        RedParticle p(pos, vel);
+        BlueParticle p2(pos, vel);
+        WhiteParticle p3(pos, vel);
+        REQUIRE(box.IsAtXBoundary(p3));
+        REQUIRE(box.IsAtXBoundary(p2));
+        REQUIRE(!box.IsAtXBoundary(p));
+    }
+
+    SECTION("White particle is only one at boundary") {
+        vec2 pos(543, 100);
+        vec2 vel(2, 2);
+        RedParticle p(pos, vel);
+        BlueParticle p2(pos, vel);
+        WhiteParticle p3(pos, vel);
+        REQUIRE(box.IsAtXBoundary(p3));
+        REQUIRE(!box.IsAtXBoundary(p2));
+        REQUIRE(!box.IsAtXBoundary(p));
     }
 }
 
@@ -74,6 +107,8 @@ TEST_CASE("IsAtYBoundary") {
         vec2 vel(2, 2);
         RedParticle p(pos, vel);
         BlueParticle p2(pos, vel);
+        WhiteParticle p3(pos, vel);
+        REQUIRE(!box.IsAtYBoundary(p3));
         REQUIRE(!box.IsAtYBoundary(p2));
         REQUIRE(!box.IsAtYBoundary(p));
     }
@@ -83,6 +118,8 @@ TEST_CASE("IsAtYBoundary") {
         vec2 vel(2, -2);
         RedParticle p(pos, vel);
         BlueParticle p2(pos, vel);
+        WhiteParticle p3(pos, vel);
+        REQUIRE(box.IsAtYBoundary(p3));
         REQUIRE(box.IsAtYBoundary(p2));
         REQUIRE(box.IsAtYBoundary(p));
     }
@@ -92,6 +129,8 @@ TEST_CASE("IsAtYBoundary") {
         vec2 vel(2, 2);
         RedParticle p(pos, vel);
         BlueParticle p2(pos, vel);
+        WhiteParticle p3(pos, vel);
+        REQUIRE(box.IsAtYBoundary(p3));
         REQUIRE(box.IsAtYBoundary(p2));
         REQUIRE(box.IsAtYBoundary(p));
     }
@@ -101,6 +140,8 @@ TEST_CASE("IsAtYBoundary") {
         vec2 vel(2, -2);
         RedParticle p(pos, vel);
         BlueParticle p2(pos, vel);
+        WhiteParticle p3(pos, vel);
+        REQUIRE(box.IsAtYBoundary(p3));
         REQUIRE(box.IsAtYBoundary(p2));
         REQUIRE(box.IsAtYBoundary(p));
     }
@@ -110,7 +151,31 @@ TEST_CASE("IsAtYBoundary") {
         vec2 vel(2, 2);
         RedParticle p(pos, vel);
         BlueParticle p2(pos, vel);
+        WhiteParticle p3(pos, vel);
+        REQUIRE(box.IsAtYBoundary(p3));
         REQUIRE(box.IsAtYBoundary(p2));
         REQUIRE(box.IsAtYBoundary(p));
+    }
+
+    SECTION("Red particle is only one not at boundary") {
+        vec2 pos(100, 547);
+        vec2 vel(2, 2);
+        RedParticle p(pos, vel);
+        BlueParticle p2(pos, vel);
+        WhiteParticle p3(pos, vel);
+        REQUIRE(box.IsAtYBoundary(p3));
+        REQUIRE(box.IsAtYBoundary(p2));
+        REQUIRE(!box.IsAtYBoundary(p));
+    }
+
+    SECTION("White particle is only one at boundary") {
+        vec2 pos(100, 543);
+        vec2 vel(2, 2);
+        RedParticle p(pos, vel);
+        BlueParticle p2(pos, vel);
+        WhiteParticle p3(pos, vel);
+        REQUIRE(box.IsAtYBoundary(p3));
+        REQUIRE(!box.IsAtYBoundary(p2));
+        REQUIRE(!box.IsAtYBoundary(p));
     }
 }
