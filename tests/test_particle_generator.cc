@@ -50,10 +50,16 @@ TEST_CASE("GenerateParticle", "[GenerateParticle][GetParticleList]") {
         REQUIRE(pg.GetParticleList().size() == 3);
         REQUIRE(pos == pg.GetParticleList()[0].GetPosition());
         REQUIRE(vel == pg.GetParticleList()[0].GetVelocity());
+        REQUIRE(pg.GetParticleList()[0].mass_ == 2);
+        REQUIRE(pg.GetParticleList()[0].radius_ == 2);
         REQUIRE(pos2 == pg.GetParticleList()[1].GetPosition());
         REQUIRE(vel2 == pg.GetParticleList()[1].GetVelocity());
+        REQUIRE(pg.GetParticleList()[1].mass_ == 5);
+        REQUIRE(pg.GetParticleList()[1].radius_ == 4);
         REQUIRE(pos3 == pg.GetParticleList()[2].GetPosition());
         REQUIRE(vel3 == pg.GetParticleList()[2].GetVelocity());
+        REQUIRE(pg.GetParticleList()[2].mass_ == 10);
+        REQUIRE(pg.GetParticleList()[2].radius_ == 7);
     }
 }
 
@@ -71,7 +77,7 @@ TEST_CASE("UpdateParticles", "[UpdateParticles][SetBox][GenerateParticle][GetPar
     Box box(vec2(0,0), 50);
     pg.SetBox(box);
 
-    SECTION("Update Single Particle") {
+    SECTION("Update Single Red Particle") {
         vec2 pos(1, 2);
         vec2 vel(1, 2);
         vec2 curr_pos = pos+vel;
@@ -81,7 +87,27 @@ TEST_CASE("UpdateParticles", "[UpdateParticles][SetBox][GenerateParticle][GetPar
         REQUIRE(pg.GetParticleList()[0].GetPosition() == curr_pos);
     }
 
-    SECTION("Update Particle after horizontal wall collision") {
+    SECTION("Update Single Blue Particle") {
+        vec2 pos(1, 2);
+        vec2 vel(1, 2);
+        vec2 curr_pos = pos+vel;
+        pg.GenerateParticle(pos, vel, "blue");
+        pg.UpdateParticles();
+        REQUIRE(pg.GetParticleList()[0].GetVelocity() == vel);
+        REQUIRE(pg.GetParticleList()[0].GetPosition() == curr_pos);
+    }
+
+    SECTION("Update Single White Particle") {
+        vec2 pos(1, 2);
+        vec2 vel(1, 2);
+        vec2 curr_pos = pos+vel;
+        pg.GenerateParticle(pos, vel, "white");
+        pg.UpdateParticles();
+        REQUIRE(pg.GetParticleList()[0].GetVelocity() == vel);
+        REQUIRE(pg.GetParticleList()[0].GetPosition() == curr_pos);
+    }
+
+    SECTION("Update Particle after horizontal right wall collision") {
         vec2 pos(50, 2);
         vec2 vel(1, 2);
         vec2 new_vel(-1, 2);
@@ -92,10 +118,32 @@ TEST_CASE("UpdateParticles", "[UpdateParticles][SetBox][GenerateParticle][GetPar
         REQUIRE(pg.GetParticleList()[0].GetPosition() == curr_pos);
     }
 
-    SECTION("Update Particle after vertical wall collision") {
+    SECTION("Update Particle after horizontal left wall collision") {
+        vec2 pos(0, 2);
+        vec2 vel(-1, 2);
+        vec2 new_vel(1, 2);
+        vec2 curr_pos = pos+new_vel;
+        pg.GenerateParticle(pos, vel, "red");
+        pg.UpdateParticles();
+        REQUIRE(pg.GetParticleList()[0].GetVelocity() == new_vel);
+        REQUIRE(pg.GetParticleList()[0].GetPosition() == curr_pos);
+    }
+
+    SECTION("Update Particle after vertical bottom wall collision") {
         vec2 pos(1, 50);
         vec2 vel(1, 2);
         vec2 new_vel(1, -2);
+        vec2 curr_pos = pos+new_vel;
+        pg.GenerateParticle(pos, vel, "red");
+        pg.UpdateParticles();
+        REQUIRE(pg.GetParticleList()[0].GetVelocity() == new_vel);
+        REQUIRE(pg.GetParticleList()[0].GetPosition() == curr_pos);
+    }
+
+    SECTION("Update Particle after vertical upper wall collision") {
+        vec2 pos(1, 0);
+        vec2 vel(1, -2);
+        vec2 new_vel(1, 2);
         vec2 curr_pos = pos+new_vel;
         pg.GenerateParticle(pos, vel, "red");
         pg.UpdateParticles();
@@ -125,7 +173,7 @@ TEST_CASE("UpdateParticles", "[UpdateParticles][SetBox][GenerateParticle][GetPar
         REQUIRE(pg.GetParticleList()[2].GetPosition() == p3_pos);
     }
 
-    SECTION("Update multiple particles after collision has occurred") {
+    SECTION("Update multiple particles of same type after collision has occurred") {
         vec2 pos(10, 10);
         vec2 vel(1, 2);
         vec2 pos2(11, 11);
@@ -137,6 +185,64 @@ TEST_CASE("UpdateParticles", "[UpdateParticles][SetBox][GenerateParticle][GetPar
         pg.GenerateParticle(pos, vel, "red");
         pg.GenerateParticle(pos2, vel2, "red");
         pg.UpdateParticles();
+        REQUIRE(pg.GetParticleList()[0].GetVelocity() == new_vel);
+        REQUIRE(pg.GetParticleList()[0].GetPosition() == curr_pos);
+        REQUIRE(pg.GetParticleList()[1].GetVelocity() == new_vel2);
+        REQUIRE(pg.GetParticleList()[1].GetPosition() == p2_pos);
+    }
+
+    SECTION("Update blue and white particles after collision has occurred") {
+        vec2 pos(10, 10);
+        vec2 vel(1, 2);
+        vec2 pos2(11, 11);
+        vec2 vel2(-2, -1);
+        pg.GenerateParticle(pos, vel, "blue");
+        pg.GenerateParticle(pos2, vel2, "white");
+        pg.UpdateParticles();
+        vec2 new_vel(-3,-2);
+        vec2 curr_pos = pos+new_vel;
+        vec2 new_vel2(0,1);
+        vec2 p2_pos = pos2+new_vel2;
+        REQUIRE(pg.GetParticleList()[0].GetVelocity() == new_vel);
+        REQUIRE(pg.GetParticleList()[0].GetPosition() == curr_pos);
+        REQUIRE(pg.GetParticleList()[1].GetVelocity() == new_vel2);
+        REQUIRE(pg.GetParticleList()[1].GetPosition() == p2_pos);
+    }
+
+    SECTION("Update blue and red particles after collision has occurred") {
+        vec2 pos(10, 10);
+        vec2 vel(1, 2);
+        vec2 pos2(11, 11);
+        vec2 vel2(-2, -1);
+        pg.GenerateParticle(pos, vel, "blue");
+        pg.GenerateParticle(pos2, vel2, "red");
+        pg.UpdateParticles();
+        vec2 new_vel(-0.714,0.286);
+        vec2 curr_pos = pos+new_vel;
+        vec2 new_vel2(2.286,3.286);
+        vec2 p2_pos = pos2+new_vel2;
+        REQUIRE(pg.GetParticleList()[0].GetVelocity().x == Approx(new_vel.x).epsilon(0.01));
+        REQUIRE(pg.GetParticleList()[0].GetVelocity().y == Approx(new_vel.y).epsilon(0.01));
+        REQUIRE(pg.GetParticleList()[0].GetPosition().y == Approx(curr_pos.y).epsilon(0.01));
+        REQUIRE(pg.GetParticleList()[0].GetPosition().x == Approx(curr_pos.x).epsilon(0.01));
+        REQUIRE(pg.GetParticleList()[1].GetVelocity().x == Approx(new_vel2.x).epsilon(0.01));
+        REQUIRE(pg.GetParticleList()[1].GetVelocity().y == Approx(new_vel2.y).epsilon(0.01));
+        REQUIRE(pg.GetParticleList()[1].GetPosition().y == Approx(p2_pos.y).epsilon(0.01));
+        REQUIRE(pg.GetParticleList()[1].GetPosition().x == Approx(p2_pos.x).epsilon(0.01));
+    }
+
+    SECTION("Update white and red particles after collision has occurred") {
+        vec2 pos(10, 10);
+        vec2 vel(1, 2);
+        vec2 pos2(11, 11);
+        vec2 vel2(-2, -1);
+        pg.GenerateParticle(pos, vel, "white");
+        pg.GenerateParticle(pos2, vel2, "red");
+        pg.UpdateParticles();
+        vec2 new_vel(0,1);
+        vec2 curr_pos = pos+new_vel;
+        vec2 new_vel2(3,4);
+        vec2 p2_pos = pos2+new_vel2;
         REQUIRE(pg.GetParticleList()[0].GetVelocity() == new_vel);
         REQUIRE(pg.GetParticleList()[0].GetPosition() == curr_pos);
         REQUIRE(pg.GetParticleList()[1].GetVelocity() == new_vel2);
