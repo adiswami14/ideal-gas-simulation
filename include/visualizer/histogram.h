@@ -31,6 +31,7 @@ private:
     size_t histogram_size_;
     vector<Particle> particle_vec_;
     ci::Color color_;
+    double increment_factor_;
 };
 
 } //namespace visualizer
