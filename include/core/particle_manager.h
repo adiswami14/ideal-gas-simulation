@@ -12,12 +12,12 @@ using std::vector;
 /**
  * Class used for the generation and storing of all Particles in the simulation
  */
-class ParticleGenerator {
+class ParticleManager {
 public:
     /**
-     * Default constructor for ParticleGenerator class
+     * Default constructor for ParticleManager class
      */
-    ParticleGenerator();
+    ParticleManager();
 
     /**
      * Given a position and velocity vector, creates a new Particle
@@ -27,7 +27,7 @@ public:
     void GenerateParticle(const vec2& pos, const vec2& vel, std::string particle_type);
 
     /**
-     * Sets instance of Box within the instance of ParticleGenerator
+     * Sets instance of Box within the instance of ParticleManager
      * @param box The value to set box_ variable's value to
      */
     void SetBox(const Box& box);

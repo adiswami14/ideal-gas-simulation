@@ -1,7 +1,7 @@
 #pragma once
 
 #include <core/box.h>
-#include <core/particle_generator.h>
+#include <core/particle_manager.h>
 #include "cinder/gl/gl.h"
 #include "histogram.h"
 
@@ -30,22 +30,22 @@ public:
     void Update();
 
     /**
-     * Gets instance of ParticleGenerator class in this instance of Simulator
+     * Gets instance of ParticleManager class in this instance of Simulator
      * @return The variable particle_generator_
      */
-    ParticleGenerator GetParticleGenerator() const;
+    ParticleManager GetParticleGenerator() const;
 
     /**
-     * Sets value of current instance of ParticleGenerator variable to variable passed in
+     * Sets value of current instance of ParticleManager variable to variable passed in
      * @param particle_generator The value to set particle_generator_ to
      */
-    void SetParticleGenerator(const ParticleGenerator& particle_generator);
+    void SetParticleGenerator(const ParticleManager& particle_generator);
 private:
     void DrawHistograms(const vector<Particle> &red_particle_list, const vector<Particle> &blue_particle_list, const vector<Particle> &white_particle_list);
 
     glm::vec2 top_left_corner_; //Top left corner of the Box
     size_t box_size_; //size of the Box
-    ParticleGenerator particle_generator_; //Instance of Particle Generator in order to keep generating particles
+    ParticleManager particle_generator_; //Instance of Particle Generator in order to keep generating particles
     Histogram red_histogram_;
     Histogram blue_histogram_;
     Histogram white_histogram_;

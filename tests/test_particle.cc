@@ -97,16 +97,39 @@ TEST_CASE("ChangePostCollisionVelocity", "[ChangePostCollisionVelocity][Get]") {
 
         SECTION("Check Post Collision Velocity of a collision with particle with all same values") {
             RedParticle p2 = p;
-            REQUIRE_THROWS_AS(p.ChangePostCollisionVelocity(p2), std::runtime_error);
+            p.ChangePostCollisionVelocity(p2);
+            REQUIRE(vel == p.GetVelocity());
+            REQUIRE(vel == p2.GetVelocity());
         }
 
-        SECTION("Check Post Collision Velocity of a legitimate collision") {
-            vec2 pos2(3, 4);
+        SECTION("Check Post Collision Velocity of a collision with red particle") {
+            vec2 pos2(2, 3);
             vec2 vel2(2, 1);
             RedParticle p2(pos2, vel2);
             vec2 curr_vel(1,2);
             p.ChangePostCollisionVelocity(p2);
-            REQUIRE(curr_vel == p.GetVelocity());
+            REQUIRE(curr_vel.x == Approx(p.GetVelocity().x).epsilon(0.01));
+            REQUIRE(curr_vel.y == Approx(p.GetVelocity().y).epsilon(0.01));
+        }
+
+        SECTION("Check Post Collision Velocity of a collision with blue particle") {
+            vec2 pos2(6, 5);
+            vec2 vel2(2, 1);
+            BlueParticle p2(pos2, vel2);
+            vec2 curr_vel(1.42,2.252);
+            p.ChangePostCollisionVelocity(p2);
+            REQUIRE(curr_vel.x == Approx(p.GetVelocity().x).epsilon(0.01));
+            REQUIRE(curr_vel.y == Approx(p.GetVelocity().y).epsilon(0.01));
+        }
+
+        SECTION("Check Post Collision Velocity of a collision with white particle") {
+            vec2 pos2(6, 5);
+            vec2 vel2(2, 1);
+            WhiteParticle p2(pos2, vel2);
+            vec2 curr_vel(1.49,2.294);
+            p.ChangePostCollisionVelocity(p2);
+            REQUIRE(curr_vel.x == Approx(p.GetVelocity().x).epsilon(0.01));
+            REQUIRE(curr_vel.y == Approx(p.GetVelocity().y).epsilon(0.01));
         }
     }
 
@@ -126,16 +149,39 @@ TEST_CASE("ChangePostCollisionVelocity", "[ChangePostCollisionVelocity][Get]") {
 
         SECTION("Check Post Collision Velocity of a collision with particle with all same values") {
             BlueParticle p2 = p;
-            REQUIRE_THROWS_AS(p.ChangePostCollisionVelocity(p2), std::runtime_error);
+            p.ChangePostCollisionVelocity(p2);
+            REQUIRE(vel == p.GetVelocity());
+            REQUIRE(vel == p2.GetVelocity());
         }
 
-        SECTION("Check Post Collision Velocity of a legitimate collision") {
-            vec2 pos2(3, 4);
+        SECTION("Check Post Collision Velocity of a collision with red particle") {
+            vec2 pos2(2, 3);
             vec2 vel2(2, 1);
-            BlueParticle p2(pos2, vel2);
+            RedParticle p2(pos2, vel2);
             vec2 curr_vel(1,2);
             p.ChangePostCollisionVelocity(p2);
-            REQUIRE(curr_vel == p.GetVelocity());
+            REQUIRE(curr_vel.x == Approx(p.GetVelocity().x).epsilon(0.01));
+            REQUIRE(curr_vel.y == Approx(p.GetVelocity().y).epsilon(0.01));
+        }
+
+        SECTION("Check Post Collision Velocity of a collision with blue particle") {
+            vec2 pos2(6, 5);
+            vec2 vel2(2, 1);
+            BlueParticle p2(pos2, vel2);
+            vec2 curr_vel(1.294,2.176);
+            p.ChangePostCollisionVelocity(p2);
+            REQUIRE(curr_vel.x == Approx(p.GetVelocity().x).epsilon(0.01));
+            REQUIRE(curr_vel.y == Approx(p.GetVelocity().y).epsilon(0.01));
+        }
+
+        SECTION("Check Post Collision Velocity of a collision with white particle") {
+            vec2 pos2(6, 5);
+            vec2 vel2(2, 1);
+            WhiteParticle p2(pos2, vel2);
+            vec2 curr_vel(1.392,2.235);
+            p.ChangePostCollisionVelocity(p2);
+            REQUIRE(curr_vel.x == Approx(p.GetVelocity().x).epsilon(0.01));
+            REQUIRE(curr_vel.y == Approx(p.GetVelocity().y).epsilon(0.01));
         }
     }
 
@@ -155,16 +201,39 @@ TEST_CASE("ChangePostCollisionVelocity", "[ChangePostCollisionVelocity][Get]") {
 
         SECTION("Check Post Collision Velocity of a collision with particle with all same values") {
             WhiteParticle p2 = p;
-            REQUIRE_THROWS_AS(p.ChangePostCollisionVelocity(p2), std::runtime_error);
+            p.ChangePostCollisionVelocity(p2);
+            REQUIRE(vel == p.GetVelocity());
+            REQUIRE(vel == p2.GetVelocity());
         }
 
-        SECTION("Check Post Collision Velocity of a legitimate collision") {
-            vec2 pos2(3, 4);
+        SECTION("Check Post Collision Velocity of a collision with red particle") {
+            vec2 pos2(2, 3);
             vec2 vel2(2, 1);
-            WhiteParticle p2(pos2, vel2);
+            RedParticle p2(pos2, vel2);
             vec2 curr_vel(1,2);
             p.ChangePostCollisionVelocity(p2);
-            REQUIRE(curr_vel == p.GetVelocity());
+            REQUIRE(curr_vel.x == Approx(p.GetVelocity().x).epsilon(0.01));
+            REQUIRE(curr_vel.y == Approx(p.GetVelocity().y).epsilon(0.01));
+        }
+
+        SECTION("Check Post Collision Velocity of a collision with blue particle") {
+            vec2 pos2(6, 5);
+            vec2 vel2(2, 1);
+            BlueParticle p2(pos2, vel2);
+            vec2 curr_vel(1.196,2.118);
+            p.ChangePostCollisionVelocity(p2);
+            REQUIRE(curr_vel.x == Approx(p.GetVelocity().x).epsilon(0.01));
+            REQUIRE(curr_vel.y == Approx(p.GetVelocity().y).epsilon(0.01));
+        }
+
+        SECTION("Check Post Collision Velocity of a collision with white particle") {
+            vec2 pos2(6, 5);
+            vec2 vel2(2, 1);
+            WhiteParticle p2(pos2, vel2);
+            vec2 curr_vel(1.294,2.176);
+            p.ChangePostCollisionVelocity(p2);
+            REQUIRE(curr_vel.x == Approx(p.GetVelocity().x).epsilon(0.01));
+            REQUIRE(curr_vel.y == Approx(p.GetVelocity().y).epsilon(0.01));
         }
     }
 }

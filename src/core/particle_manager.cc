@@ -1,13 +1,13 @@
-#include <core/particle_generator.h>
+#include <core/particle_manager.h>
 #include <core/red_particle.h>
 #include <core/blue_particle.h>
 #include <core/white_particle.h>
 
 namespace idealgas {
 
-ParticleGenerator::ParticleGenerator() {}
+ParticleManager::ParticleManager() {}
 
-void ParticleGenerator::GenerateParticle(const vec2& pos, const vec2& vel, std::string particle_type) {
+void ParticleManager::GenerateParticle(const vec2& pos, const vec2& vel, std::string particle_type) {
     if(particle_type == "red") {
         RedParticle red_particle(pos, vel);
         particle_list_.push_back(red_particle);
@@ -20,15 +20,15 @@ void ParticleGenerator::GenerateParticle(const vec2& pos, const vec2& vel, std::
     }
 }
 
-void ParticleGenerator::SetBox(const Box &box) {
+void ParticleManager::SetBox(const Box &box) {
     box_ = box;
 }
 
-vector<Particle> ParticleGenerator::GetParticleList() const {
+vector<Particle> ParticleManager::GetParticleList() const {
     return particle_list_;
 }
 
-void ParticleGenerator::UpdateParticles() {
+void ParticleManager::UpdateParticles() {
     for(size_t index = 0; index < particle_list_.size(); index++) {
         Particle p = particle_list_.at(index);
         vec2 curr_particle_position = p.GetPosition(); //update velocities and positions and set them at the end
@@ -44,7 +44,10 @@ void ParticleGenerator::UpdateParticles() {
     }
 }
 
-void ParticleGenerator::ChangeVelocities(double factor) {
+void ParticleManager::ChangeVelocities(double factor) {
+    if(factor<0) {
+        return;
+    }
     for(Particle &p: particle_list_) {
         vec2 vel = p.GetVelocity();
         vel*=factor;
@@ -52,7 +55,7 @@ void ParticleGenerator::ChangeVelocities(double factor) {
     }
 }
 
-void ParticleGenerator::CheckCollisions(Particle &p, size_t curr_index,  const vec2 &p_position, vec2 &p_velocity) {
+void ParticleManager::CheckCollisions(Particle &p, size_t curr_index, const vec2 &p_position, vec2 &p_velocity) {
     for(size_t index = 0; index < particle_list_.size(); index++) { //re-iterate through particle list
         if(index != curr_index) {
             Particle particle = particle_list_.at(index);
@@ -67,7 +70,7 @@ void ParticleGenerator::CheckCollisions(Particle &p, size_t curr_index,  const v
     }
 }
 
-void ParticleGenerator::CheckBounds(const Particle &p, vec2 &p_velocity) {
+void ParticleManager::CheckBounds(const Particle &p, vec2 &p_velocity) {
     if(box_.IsAtXBoundary(p)) {
         p_velocity.x*=-1;
     }

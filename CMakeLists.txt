@@ -49,14 +49,14 @@ get_filename_component(APP_PATH "${CMAKE_CURRENT_SOURCE_DIR}/" ABSOLUTE)
 
 include("${CINDER_PATH}/proj/cmake/modules/cinderMakeApp.cmake")
 
-list(APPEND CORE_SOURCE_FILES src/core/box.cc src/core/particle_generator.cc src/core/particle.cc src/core/red_particle.cc src/core/blue_particle.cc src/core/white_particle.cc)
+list(APPEND CORE_SOURCE_FILES src/core/box.cc src/core/particle_manager.cc src/core/particle.cc src/core/red_particle.cc src/core/blue_particle.cc src/core/white_particle.cc)
 
 list(APPEND SOURCE_FILES    ${CORE_SOURCE_FILES}
         src/visualizer/ideal_gas_app.cc
         src/visualizer/simulator.cc
         src/visualizer/histogram.cc)
 
-list(APPEND TEST_FILES tests/test_box.cc tests/test_particle.cc tests/test_particle_generator.cc)
+list(APPEND TEST_FILES tests/test_box.cc tests/test_particle.cc tests/test_particle_manager.cc)
 
 ci_make_app(
         APP_NAME        gas-simulator

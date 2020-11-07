@@ -20,7 +20,7 @@ void IdealGasApp::update() {
 }
 
 void IdealGasApp::keyDown(ci::app::KeyEvent event) {
-    ParticleGenerator pg = simulator_.GetParticleGenerator();
+    ParticleManager pg = simulator_.GetParticleGenerator();
     switch (event.getCode()) {
         case ci::app::KeyEvent::KEY_RIGHT:
             pg.ChangeVelocities(1.2);

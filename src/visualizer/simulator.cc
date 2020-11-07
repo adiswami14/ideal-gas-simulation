@@ -57,11 +57,11 @@ void Simulator::Draw() {
  DrawHistograms(red_particle_list, blue_particle_list, white_particle_list);
 }
 
-ParticleGenerator Simulator::GetParticleGenerator() const {
+ParticleManager Simulator::GetParticleGenerator() const {
     return particle_generator_;
 }
 
-void Simulator::SetParticleGenerator(const ParticleGenerator &particle_generator) {
+void Simulator::SetParticleGenerator(const ParticleManager &particle_generator) {
     particle_generator_ = particle_generator;
 }
 

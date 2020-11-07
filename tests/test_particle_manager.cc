@@ -1,11 +1,11 @@
-#include <core/particle_generator.h>
+#include <core/particle_manager.h>
 
 #include <catch2/catch.hpp>
 
 using namespace idealgas;
 
 TEST_CASE("GenerateParticle", "[GenerateParticle][GetParticleList]") {
-    ParticleGenerator pg;
+    ParticleManager pg;
     vec2 pos(0, 0);
     vec2 vel(0,0);
 
@@ -64,7 +64,7 @@ TEST_CASE("GenerateParticle", "[GenerateParticle][GetParticleList]") {
 }
 
 TEST_CASE("SetBox", "[SetBox]") {
-    ParticleGenerator pg;
+    ParticleManager pg;
     Box box(vec2(0,0), 1);
     pg.SetBox(box);
     REQUIRE(box.GetBoxSize() == 1);
@@ -73,7 +73,7 @@ TEST_CASE("SetBox", "[SetBox]") {
 }
 
 TEST_CASE("UpdateParticles", "[UpdateParticles][SetBox][GenerateParticle][GetParticleList]") {
-    ParticleGenerator pg;
+    ParticleManager pg;
     Box box(vec2(0,0), 50);
     pg.SetBox(box);
 
@@ -247,6 +247,59 @@ TEST_CASE("UpdateParticles", "[UpdateParticles][SetBox][GenerateParticle][GetPar
         REQUIRE(pg.GetParticleList()[0].GetPosition() == curr_pos);
         REQUIRE(pg.GetParticleList()[1].GetVelocity() == new_vel2);
         REQUIRE(pg.GetParticleList()[1].GetPosition() == p2_pos);
+    }
+}
+
+TEST_CASE("ChangeVelocities") {
+    ParticleManager pm;
+    vec2 pos(5, 4);
+    vec2 vel(5, 15);
+    pm.GenerateParticle(pos, vel, "red");
+    SECTION("Zero factor") {
+        pm.ChangeVelocities(0);
+        vec2 zero_vel(0,0);
+        REQUIRE(zero_vel == pm.GetParticleList()[0].GetVelocity());
+    }
+    SECTION("Negative factor") {
+        pm.ChangeVelocities(-1);
+        REQUIRE(vel == pm.GetParticleList()[0].GetVelocity());
+    }
+    SECTION("Increase Speed") {
+        SECTION("Increase Speed for Single Particle") {
+            pm.ChangeVelocities(2);
+            vec2 changed_vel(10, 30);
+            REQUIRE(changed_vel == pm.GetParticleList()[0].GetVelocity());
+        }
+
+        SECTION("Increase Speed for multiple particles") {
+            vec2 pos2(55, 4);
+            vec2 vel2(20, 15);
+            pm.GenerateParticle(pos2, vel2, "red");
+            pm.ChangeVelocities(3);
+            vec2 new_vel(15, 45);
+            vec2 new_vel2(60, 45);
+            REQUIRE(new_vel == pm.GetParticleList()[0].GetVelocity());
+            REQUIRE(new_vel2 == pm.GetParticleList()[1].GetVelocity());
+        }
+    }
+
+    SECTION("Decrease Speed") {
+        SECTION("Decrease Speed for Single Particle") {
+            pm.ChangeVelocities(0.2);
+            vec2 changed_vel(1, 3);
+            REQUIRE(changed_vel == pm.GetParticleList()[0].GetVelocity());
+        }
+
+        SECTION("Decrease Speed for multiple particles") {
+            vec2 pos2(55, 4);
+            vec2 vel2(20, 15);
+            pm.GenerateParticle(pos2, vel2, "red");
+            pm.ChangeVelocities(0.8);
+            vec2 new_vel(4, 12);
+            vec2 new_vel2(16, 12);
+            REQUIRE(new_vel == pm.GetParticleList()[0].GetVelocity());
+            REQUIRE(new_vel2 == pm.GetParticleList()[1].GetVelocity());
+        }
     }
 }
 
