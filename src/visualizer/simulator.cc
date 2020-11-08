@@ -11,23 +11,21 @@ Simulator::Simulator(const glm::vec2 &top_left_corner, size_t box_size)
   box_size_(box_size){
     Box box(top_left_corner_, box_size_);
     particle_generator_.SetBox(box);
-    Histogram histogram(vec2(150, 750), 100);
-    Histogram histogram2(vec2(450, 750), 100);
-    Histogram histogram3(vec2(750, 750), 100);
+
+    Histogram histogram(vec2(150, 750), 100, ci::Color("red"), 0.5);
+    Histogram histogram2(vec2(450, 750), 100, ci::Color("blue"), 0.5);
+    Histogram histogram3(vec2(750, 750), 100, ci::Color("white"), 0.5);
     red_histogram_ = histogram;
-    red_histogram_.SetColor(ci::Color("red"));
     blue_histogram_ = histogram2;
-    blue_histogram_.SetColor(ci::Color("blue"));
     white_histogram_ = histogram3;
-    white_histogram_.SetColor(ci::Color("white"));
 
 }
 
 void Simulator::Update() {
     particle_generator_.UpdateParticles();
-    red_histogram_.Update();
-    blue_histogram_.Update();
-    white_histogram_.Update();
+    red_histogram_.UpdateFrequencyMap();
+    blue_histogram_.UpdateFrequencyMap();
+    white_histogram_.UpdateFrequencyMap();
 }
 
 void Simulator::Draw() {
@@ -41,6 +39,7 @@ void Simulator::Draw() {
  vector<Particle> red_particle_list;
  vector<Particle> blue_particle_list;
  vector<Particle> white_particle_list;
+
  for(Particle p : particle_generator_.GetParticleList()) {
      if(p.mass_ == 2) {
          ci::gl::color(ci::Color("red"));
@@ -54,6 +53,7 @@ void Simulator::Draw() {
      }
      ci::gl::drawSolidCircle(p.GetPosition(), p.radius_);
  }
+
  DrawHistograms(red_particle_list, blue_particle_list, white_particle_list);
 }
 

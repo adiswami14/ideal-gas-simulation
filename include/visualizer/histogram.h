@@ -14,24 +14,33 @@ class Histogram {
 public:
     Histogram();
 
-    Histogram(glm::vec2 bottom_left_corner, size_t histogram_size);
+    Histogram(const glm::vec2 &bottom_left_corner, size_t histogram_size, const ci::Color& color, double rounding_factor);
 
     void SetParticleVector(const vector<Particle> &particle_vec);
 
     void Draw();
 
-    void Update();
-
-    void SetColor(const ci::Color &color);
-private:
     void UpdateFrequencyMap();
-    void CreateHistogram();
+
+    glm::vec2 GetBottomLeftCorner() const;
+
+    size_t GetHistogramSize() const;
+
+    ci::Color GetColor() const;
+
+    vector<Particle> GetParticleVector() const;
+
+    double GetRoundingFactor() const;
+
+    map<double, size_t> GetFrequencyMap() const;
+private:
+    void DrawBars();
     glm::vec2 bottom_left_corner_;
     map<double, size_t> frequency_map_;
     size_t histogram_size_;
     vector<Particle> particle_vec_;
     ci::Color color_;
-    double increment_factor_;
+    double rounding_factor_;
 };
 
 } //namespace visualizer

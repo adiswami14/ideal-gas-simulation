@@ -56,7 +56,7 @@ list(APPEND SOURCE_FILES    ${CORE_SOURCE_FILES}
         src/visualizer/simulator.cc
         src/visualizer/histogram.cc)
 
-list(APPEND TEST_FILES tests/test_box.cc tests/test_particle.cc tests/test_particle_manager.cc)
+list(APPEND TEST_FILES tests/test_box.cc tests/test_particle.cc tests/test_particle_manager.cc tests/test_histogram.cc)
 
 ci_make_app(
         APP_NAME        gas-simulator
@@ -68,7 +68,7 @@ ci_make_app(
 ci_make_app(
         APP_NAME        ideal-gas-test
         CINDER_PATH     ${CINDER_PATH}
-        SOURCES         tests/test_main.cc ${CORE_SOURCE_FILES}  ${TEST_FILES}
+        SOURCES         tests/test_main.cc ${SOURCE_FILES}  ${TEST_FILES}
         INCLUDES        include
         LIBRARIES       catch2
 )

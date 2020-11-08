@@ -10,55 +10,76 @@ Histogram::Histogram() {
 
 }
 
-Histogram::Histogram(glm::vec2 bottom_left_corner, size_t histogram_size) :
+Histogram::Histogram(const glm::vec2 &bottom_left_corner, size_t histogram_size, const ci::Color &color, double rounding_factor) :
 bottom_left_corner_(bottom_left_corner),
-histogram_size_(histogram_size){
-    increment_factor_ = 0.5;
-}
-
-void Histogram::Update() {
-    UpdateFrequencyMap();
-}
+histogram_size_(histogram_size),
+color_(color),
+rounding_factor_(rounding_factor){}
 
 void Histogram::Draw() {
+    //draw x and y axis
     ci::gl::color(ci::Color("white"));
     vec2 x_axis_vec = bottom_left_corner_+vec2(histogram_size_, 0);
     vec2 y_axis_vec = bottom_left_corner_-vec2(0, histogram_size_);
     ci::gl::drawLine(bottom_left_corner_, x_axis_vec);
     ci::gl::drawLine(bottom_left_corner_, y_axis_vec);
+
     ci::gl::drawStringCentered("Speed", x_axis_vec+vec2(-20, 30));
     ci::gl::drawStringCentered("Frequency", y_axis_vec-vec2(40, -10));
+
+    //draw min and max on x axis
     double max = std::max_element(frequency_map_.begin(), frequency_map_.end())->first;
     double min = std::min_element(frequency_map_.begin(), frequency_map_.end())->first;
     ci::gl::drawString(std::to_string(max), x_axis_vec+vec2(0, 10));
     ci::gl::drawString(std::to_string(min), bottom_left_corner_+vec2(0, 10));
+
     ci::gl::color(color_);
-    CreateHistogram();
+    DrawBars();
 }
 
 void Histogram::SetParticleVector(const vector<Particle> &particle_vec) {
     particle_vec_ = particle_vec;
 }
 
-void Histogram::SetColor(const ci::Color &color) {
-    color_ = color;
+map<double, size_t> Histogram::GetFrequencyMap() const {
+    return frequency_map_;
+}
+
+ci::Color Histogram::GetColor() const {
+    return color_;
+}
+
+glm::vec2 Histogram::GetBottomLeftCorner() const {
+    return bottom_left_corner_;
+}
+
+size_t Histogram::GetHistogramSize() const {
+    return histogram_size_;
+}
+
+double Histogram::GetRoundingFactor() const {
+    return rounding_factor_;
+}
+
+vector<Particle> Histogram::GetParticleVector() const {
+    return particle_vec_;
 }
 
 void Histogram::UpdateFrequencyMap() {
     frequency_map_.clear();
-    double mult_factor = 1/increment_factor_;
+    double mult_factor = 1 / rounding_factor_; //used to help round speed values to nearest rounding_factor_ value
     for(Particle particle: particle_vec_) {
         double speed = glm::length(particle.GetVelocity());
         frequency_map_[round(mult_factor*speed)/mult_factor]++;
     }
 }
 
-void Histogram::CreateHistogram() {
+void Histogram::DrawBars() {
     double width;
 
     if(frequency_map_.empty()) {
         width = 0.0;
-    } else width = histogram_size_/frequency_map_.size();
+    } else width = histogram_size_/frequency_map_.size(); //to account for more diverse speeds
 
     double height = 10.0;
     vec2 curr_vec = bottom_left_corner_;
