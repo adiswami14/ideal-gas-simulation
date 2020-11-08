@@ -43,6 +43,11 @@ public:
      */
     void UpdateParticles();
 
+    /**
+     * Changes velocities of all particles in simulation to either increase or decrease
+     * Can not be a negative value, as this will change all the directions of velocities
+     * @param factor The factor by which to multiply all particle velocities by
+     */
     void ChangeVelocities(double factor);
 private:
     /**

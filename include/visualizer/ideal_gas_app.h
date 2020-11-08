@@ -15,20 +15,21 @@ namespace visualizer {
 class IdealGasApp : public ci::app::App {
 public:
     const double kWindowSize = 900;//size of the Cinder window
-    const double kXMargin = 250; //margin to keep Box at
-    const double kYMargin = 100;
+    const double kXMargin = 250; //x margin to keep Box at
+    const double kYMargin = 100; //y margin to keep Box at
     const size_t kBoxSize = 400; //the size of the Box
 
     /**
      * Default constructor for this class
      */
     IdealGasApp();
+
     void draw() override;
     void update() override;
     void keyDown(ci::app::KeyEvent event) override;
 private:
     Simulator simulator_; //instance of Simulator class to update particles
-    std::string particle_mode_;
+    std::string particle_mode_; //string representing the type of particle, default set to "red"
 };
 
 } //namespace visualizer

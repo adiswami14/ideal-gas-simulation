@@ -21,7 +21,6 @@ public:
      * Overloaded constructor of Box class
      * @param top_left_corner Top left corner of this instance of box
      * @param box_size The size of this instance of box
-     * @param particle_radius The radius of each particle in the box
      */
     Box(const vec2& top_left_corner, size_t box_size);
 
