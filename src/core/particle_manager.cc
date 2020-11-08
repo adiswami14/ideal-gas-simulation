@@ -45,7 +45,7 @@ void ParticleManager::UpdateParticles() {
 }
 
 void ParticleManager::ChangeVelocities(double factor) {
-    if(factor<0) {
+    if(factor<0) { //changing velocities by a negative factor will change directions of particle and that can't happen
         return;
     }
     for(Particle &p: particle_list_) {

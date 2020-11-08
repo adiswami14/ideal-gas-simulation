@@ -74,21 +74,20 @@ void Histogram::UpdateFrequencyMap() {
     }
 }
 
-void Histogram::DrawBars() {
+void Histogram::DrawBars(){
     double width;
 
     if(frequency_map_.empty()) {
         width = 0.0;
-    } else width = histogram_size_/frequency_map_.size(); //to account for more diverse speeds
+    } else width = histogram_size_/frequency_map_.size(); //as speeds become more diverse, there will be more units on histogram to account for it
 
-    double height = 10.0;
     vec2 curr_vec = bottom_left_corner_;
-    for(auto const &x: frequency_map_) {
-        size_t num = frequency_map_[x.first];
-        vec2 height_vec = curr_vec-vec2(0, num*height);
-        curr_vec+=vec2(width, 0);
+    for(auto const &x: frequency_map_) { //iterates through frequency_map
+        size_t frequency = frequency_map_[x.first];
+        vec2 height_vec = curr_vec-vec2(0, frequency*unit_frequency_height_); //top left corner of rectangle
+        curr_vec+=vec2(width, 0); //bottom right corner of rectangle
         ci::Rectf num_box(height_vec, curr_vec);
-        ci::gl::drawSolidRect(num_box);
+        ci::gl::drawSolidRect(num_box); //draws a frequency bar on histogram
     }
 }
 }

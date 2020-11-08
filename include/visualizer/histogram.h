@@ -94,6 +94,7 @@ private:
     vector<Particle> particle_vec_; //vector of Particles to draw data from
     ci::Color color_; //color of the overall histogram bars
     double rounding_factor_; //nearest factor to round speed data to
+    size_t unit_frequency_height_ = 10; //how tall to make a single unit of frequency on histogram
 };
 
 } //namespace visualizer
