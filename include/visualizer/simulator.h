@@ -45,11 +45,13 @@ public:
 private:
     /**
      * Sets particle vectors of histograms and draws histograms onto screen
-     * @param red_particle_list Particle vector of RedParticles
-     * @param blue_particle_list Particle vector of BlueParticles
-     * @param white_particle_list Particle vector of WhiteParticles
      */
-    void DrawHistograms(const vector<Particle> &red_particle_list, const vector<Particle> &blue_particle_list, const vector<Particle> &white_particle_list);
+    void DrawHistograms();
+
+    /**
+     *
+     */
+    void UpdateHistogramVectors();
 
     glm::vec2 top_left_corner_; //Top left corner of the Box
     size_t box_size_; //size of the Box
@@ -57,6 +59,9 @@ private:
     Histogram red_histogram_; //histogram for RedParticles
     Histogram blue_histogram_; //histogram for BlueParticles
     Histogram white_histogram_; //histogram for WhiteParticles
+    vector<Particle> red_particle_list_; //list of all RedParticles in simulation
+    vector<Particle> blue_particle_list_; //list of all BlueParticles in simulation
+    vector<Particle> white_particle_list_; //list of all WhiteParticles in simulation
 };
 
 } //namespace visualizer

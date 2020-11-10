@@ -47,36 +47,106 @@ TEST_CASE("Set and get", "[Constructor][Get][Set]") {
 }
 
 TEST_CASE("HasCollidedWith", "[HasCollidedWith][GetDistanceTo]") {
-    vec2 pos(1.4, 2);
-    vec2 vel(0.4, 2.5);
-    Particle p(pos, vel);
+    SECTION("RedParticle") {
+        vec2 pos(1.4, 2);
+        vec2 vel(0.4, 2.5);
+        RedParticle p(pos, vel);
 
-    SECTION("Check particles at same position") {
-        vec2 pos2(1.4, 2);
-        vec2 vel2(0.4, 2.5);
-        Particle p2(pos2, vel2);
-        REQUIRE_FALSE(p.HasCollidedWith(p2));
+        SECTION("Check particles at same position") {
+            vec2 pos2(1.4, 2);
+            vec2 vel2(0.4, 2.5);
+            RedParticle p2(pos2, vel2);
+            REQUIRE_FALSE(p.HasCollidedWith(p2));
+        }
+
+        SECTION("Check particles with velocities moving toward each other") {
+            vec2 pos2(1.6, 3.6);
+            vec2 vel2(-0.4, -2.5);
+            RedParticle p2(pos2, vel2);
+            REQUIRE(p.HasCollidedWith(p2));
+        }
+
+        SECTION("Check particles with velocities moving away from each other") {
+            vec2 pos2(1.6, 3.6);
+            vec2 vel2(0.4, 2.5);
+            RedParticle p2(pos2, vel2);
+            REQUIRE_FALSE(p.HasCollidedWith(p2));
+        }
+
+        SECTION("Check with particles that are out of reach") {
+            vec2 pos2(7.4, 9);
+            vec2 vel2(0.4, 2.5);
+            RedParticle p2(pos2, vel2);
+            REQUIRE_FALSE(p.HasCollidedWith(p2));
+        }
     }
 
-    SECTION("Check particles with velocities moving toward each other") {
-        vec2 pos2(5.2, 3.6);
-        vec2 vel2(-0.4, -2.5);
-        Particle p2(pos2, vel2);
-        REQUIRE(p.HasCollidedWith(p2));
+    SECTION("BlueParticle") {
+        vec2 pos(1.4, 2);
+        vec2 vel(0.4, 2.5);
+        BlueParticle p(pos, vel);
+
+        SECTION("Check particles at same position") {
+            vec2 pos2(1.4, 2);
+            vec2 vel2(0.4, 2.5);
+            BlueParticle p2(pos2, vel2);
+            REQUIRE_FALSE(p.HasCollidedWith(p2));
+        }
+
+        SECTION("Check particles with velocities moving toward each other") {
+            vec2 pos2(5.2, 3.6);
+            vec2 vel2(-0.4, -2.5);
+            BlueParticle p2(pos2, vel2);
+            REQUIRE(p.HasCollidedWith(p2));
+        }
+
+        SECTION("Check particles with velocities moving away from each other") {
+            vec2 pos2(5.2, 3.6);
+            vec2 vel2(0.4, 2.5);
+            BlueParticle p2(pos2, vel2);
+            REQUIRE_FALSE(p.HasCollidedWith(p2));
+        }
+
+        SECTION("Check with particles that are out of reach") {
+            vec2 pos2(7.4, 9);
+            vec2 vel2(0.4, 2.5);
+            BlueParticle p2(pos2, vel2);
+            REQUIRE_FALSE(p.HasCollidedWith(p2));
+        }
     }
 
-    SECTION("Check particles with velocities moving away from each other") {
-        vec2 pos2(5.2, 3.6);
-        vec2 vel2(0.4, 2.5);
-        Particle p2(pos2, vel2);
-        REQUIRE_FALSE(p.HasCollidedWith(p2));
-    }
+    SECTION("WhiteParticle") {
+        vec2 pos(1.4, 2);
+        vec2 vel(0.4, 2.5);
+        WhiteParticle p(pos, vel);
 
-    SECTION("Check with particles that are out of reach") {
-        vec2 pos2(7.4, 9);
-        vec2 vel2(0.4, 2.5);
-        Particle p2(pos2, vel2);
-        REQUIRE_FALSE(p.HasCollidedWith(p2));
+        SECTION("Check particles at same position") {
+            vec2 pos2(1.4, 2);
+            vec2 vel2(0.4, 2.5);
+            WhiteParticle p2(pos2, vel2);
+            REQUIRE_FALSE(p.HasCollidedWith(p2));
+        }
+
+        SECTION("Check particles with velocities moving toward each other") {
+            vec2 pos2(6.2, 3.6);
+            vec2 vel2(-0.4, -2.5);
+            WhiteParticle p2(pos2, vel2);
+            REQUIRE(p.HasCollidedWith(p2));
+        }
+
+        SECTION("Check particles with velocities moving away from each other") {
+            vec2 pos2(6.2, 3.6);
+            vec2 vel2(0.4, 2.5);
+            WhiteParticle p2(pos2, vel2);
+            REQUIRE_FALSE(p.HasCollidedWith(p2));
+        }
+
+        SECTION("Check with particles that are out of reach") {
+            vec2 pos2(10.2, 9);
+            vec2 vel2(0.4, 2.5);
+            WhiteParticle p2(pos2, vel2);
+            REQUIRE_FALSE(p.HasCollidedWith(p2));
+        }
     }
 }
 

@@ -23,12 +23,17 @@ Simulator::Simulator(const glm::vec2 &top_left_corner, size_t box_size)
 
 void Simulator::Update() {
     particle_generator_.UpdateParticles();
+    UpdateHistogramVectors();
     red_histogram_.UpdateFrequencyMap();
     blue_histogram_.UpdateFrequencyMap();
     white_histogram_.UpdateFrequencyMap();
 }
 
 void Simulator::Draw() {
+ red_particle_list_.clear();
+ blue_particle_list_.clear();
+ white_particle_list_.clear();
+
  vec2 bottom_right_corner = top_left_corner_+vec2(box_size_, box_size_);
  ci::Rectf pixel_bounding_box(top_left_corner_, bottom_right_corner);
  ci::gl::color(ci::Color("black"));
@@ -36,25 +41,21 @@ void Simulator::Draw() {
  ci::gl::color(ci::Color("grey")); //draws box within which simulation will take place
  ci::gl::drawStrokedRect(pixel_bounding_box);
 
- vector<Particle> red_particle_list;
- vector<Particle> blue_particle_list;
- vector<Particle> white_particle_list;
-
  for(Particle p : particle_generator_.GetParticleList()) {
-     if(p.mass_ == 2) {
+     if(p.mass_ == 2 && p.radius_ == 2) { //red particle
          ci::gl::color(ci::Color("red"));
-         red_particle_list.push_back(p);
-     } else if(p.mass_ == 5) {
+         red_particle_list_.push_back(p);
+     } else if(p.mass_ == 5 && p.radius_ == 4) {  //blue particle
          ci::gl::color(ci::Color("blue"));
-         blue_particle_list.push_back(p);
-     } else if(p.mass_ == 10) {
+         blue_particle_list_.push_back(p);
+     } else if(p.mass_ == 10 && p.radius_ == 7) {  //white particle
          ci::gl::color(ci::Color("white"));
-         white_particle_list.push_back(p);
+         white_particle_list_.push_back(p);
      }
      ci::gl::drawSolidCircle(p.GetPosition(), p.radius_);
  }
 
- DrawHistograms(red_particle_list, blue_particle_list, white_particle_list);
+ DrawHistograms();
 }
 
 ParticleManager Simulator::GetParticleGenerator() const {
@@ -65,12 +66,15 @@ void Simulator::SetParticleGenerator(const ParticleManager &particle_generator) 
     particle_generator_ = particle_generator;
 }
 
-void Simulator::DrawHistograms(const vector<Particle> &red_particle_list, const vector<Particle> &blue_particle_list, const vector<Particle> &white_particle_list) {
-    red_histogram_.SetParticleVector(red_particle_list);
+void Simulator::UpdateHistogramVectors() {
+    red_histogram_.SetParticleVector(red_particle_list_);
+    blue_histogram_.SetParticleVector(blue_particle_list_);
+    white_histogram_.SetParticleVector(white_particle_list_);
+}
+
+void Simulator::DrawHistograms() {
     red_histogram_.Draw();
-    blue_histogram_.SetParticleVector(blue_particle_list);
     blue_histogram_.Draw();
-    white_histogram_.SetParticleVector(white_particle_list);
     white_histogram_.Draw();
 }
 } //namespace visualizer
