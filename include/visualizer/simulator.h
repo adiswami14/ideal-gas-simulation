@@ -49,7 +49,7 @@ private:
     void DrawHistograms();
 
     /**
-     *
+     * Updates the vectors of RedParticles, BlueParticles, and WhiteParticles to pass into histogram
      */
     void UpdateHistogramVectors();
 

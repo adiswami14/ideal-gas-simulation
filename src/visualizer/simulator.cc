@@ -30,7 +30,7 @@ void Simulator::Update() {
 }
 
 void Simulator::Draw() {
- red_particle_list_.clear();
+ red_particle_list_.clear(); //preliminary clear of all particle lists so we can get their current positions
  blue_particle_list_.clear();
  white_particle_list_.clear();
 
