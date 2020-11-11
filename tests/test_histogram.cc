@@ -44,8 +44,8 @@ TEST_CASE("UpdateFrequencyMap") {
         Histogram h(vec2(0,0), 40, ci::Color("red"), 0.1);
         Particle p(vec2(0,0), vec2(1,2));
         Particle p2(vec2(0,0), vec2(2,1));
-        Particle p3(vec2(0,0), vec2(1,2));
-        Particle p4(vec2(0,0), vec2(2,1));
+        Particle p3(vec2(0,0), vec2(0,2.2));
+        Particle p4(vec2(0,0), vec2(2.2,0));
         vector<Particle> particle_list;
         particle_list.push_back(p);
         particle_list.push_back(p2);

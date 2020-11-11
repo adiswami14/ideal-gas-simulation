@@ -274,12 +274,22 @@ TEST_CASE("ChangeVelocities") {
         SECTION("Increase Speed for multiple particles") {
             vec2 pos2(55, 4);
             vec2 vel2(20, 15);
+            vec2 pos3(2,2);
+            vec2 vel3(2,2);
+            vec2 pos4(19,120);
+            vec2 vel4(17, 14);
             pm.GenerateParticle(pos2, vel2, "red");
+            pm.GenerateParticle(pos3, vel3, "blue");
+            pm.GenerateParticle(pos4, vel4, "white");
             pm.ChangeVelocities(3);
             vec2 new_vel(15, 45);
             vec2 new_vel2(60, 45);
+            vec2 new_vel3(6,6);
+            vec2 new_vel4(51, 42);
             REQUIRE(new_vel == pm.GetParticleList()[0].GetVelocity());
             REQUIRE(new_vel2 == pm.GetParticleList()[1].GetVelocity());
+            REQUIRE(new_vel3 == pm.GetParticleList()[2].GetVelocity());
+            REQUIRE(new_vel4 == pm.GetParticleList()[3].GetVelocity());
         }
     }
 
@@ -294,11 +304,21 @@ TEST_CASE("ChangeVelocities") {
             vec2 pos2(55, 4);
             vec2 vel2(20, 15);
             pm.GenerateParticle(pos2, vel2, "red");
+            vec2 pos3(5,25);
+            vec2 vel3(90,5);
+            vec2 pos4(19,120);
+            vec2 vel4(25, 30);
+            pm.GenerateParticle(pos3, vel3, "blue");
+            pm.GenerateParticle(pos4, vel4, "white");
             pm.ChangeVelocities(0.8);
             vec2 new_vel(4, 12);
             vec2 new_vel2(16, 12);
+            vec2 new_vel3(72, 4);
+            vec2 new_vel4(20, 24);
             REQUIRE(new_vel == pm.GetParticleList()[0].GetVelocity());
             REQUIRE(new_vel2 == pm.GetParticleList()[1].GetVelocity());
+            REQUIRE(new_vel3 == pm.GetParticleList()[2].GetVelocity());
+            REQUIRE(new_vel4 == pm.GetParticleList()[3].GetVelocity());
         }
     }
 }
